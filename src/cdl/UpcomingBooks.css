@@ -1,0 +1,115 @@
+/* Faixa "On the way": livros ja sorteados que ainda nao comecaram. */
+.upcoming {
+    width: min(1300px, 95vw);
+    margin: 0 auto 40px;
+    font-family: var(--font-body);
+}
+
+.upcoming-head {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-bottom: var(--space-4);
+}
+
+.upcoming-title {
+    font-family: var(--font-display);
+    font-size: 22px;
+    margin: 0;
+    color: var(--color-text-primary);
+}
+
+.upcoming-title::before {
+    content: '';
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    margin-right: 10px;
+    border-radius: 50%;
+    background-color: var(--color-teal);
+    vertical-align: middle;
+}
+
+.upcoming-sub {
+    margin: 0;
+    font-size: 13px;
+    color: var(--color-text-secondary);
+}
+
+.upcoming-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: var(--space-4);
+}
+
+.upcoming-card {
+    display: block;
+    color: inherit;
+    transition: transform var(--transition-base);
+}
+
+.upcoming-card:hover {
+    transform: translateY(-4px);
+}
+
+.upcoming-poster {
+    position: relative;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+}
+
+.upcoming-poster img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 2 / 3;
+    object-fit: cover;
+    /* Ainda nao chegou: fica esbatido ate comecar. */
+    filter: grayscale(0.55) brightness(0.7);
+    transition: filter var(--transition-base);
+}
+
+.upcoming-card:hover .upcoming-poster img {
+    filter: none;
+}
+
+.upcoming-week {
+    position: absolute;
+    left: var(--space-2);
+    bottom: var(--space-2);
+    padding: 4px 10px;
+    border-radius: var(--radius-lg);
+    background-color: rgba(12, 13, 18, 0.85);
+    border: 1px solid var(--color-line);
+    color: var(--color-teal);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    white-space: nowrap;
+}
+
+.upcoming-name {
+    margin: 10px 0 2px;
+    font-family: var(--font-display);
+    font-size: 15px;
+    line-height: 1.25;
+    color: var(--color-text-primary);
+}
+
+.upcoming-meta {
+    margin: 0;
+    font-size: 12px;
+    color: var(--color-text-secondary);
+}
+
+@media (max-width: 480px) {
+    .upcoming-grid {
+        grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+        gap: var(--space-3);
+    }
+
+    .upcoming-name {
+        font-size: 13px;
+    }
+}

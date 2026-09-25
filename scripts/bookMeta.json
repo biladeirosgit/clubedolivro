@@ -1,0 +1,305 @@
+{
+    "_comment": "Lista mestre dos livros do clube, por ID do Goodreads (o numero em goodreads.com/book/show/<ID>). date = dia em que o livro comecou (DD/MM/YYYY); acaba na vespera do livro seguinte. chosenBy = quem o recomendou (nomes do members.json). _title e so para te orientares; title (opcional) sobrepoe o titulo do Goodreads. cover (opcional) = URL de uma capa melhor, substitui a do Goodreads.",
+    "35031085": {
+        "_title": "frankenstein",
+        "date": "17/01/2023",
+        "chosenBy": [
+            "Atlas"
+        ]
+    },
+    "17061": {
+        "_title": "Coraline",
+        "date": "21/02/2023",
+        "chosenBy": [
+            "Geremias"
+        ]
+    },
+    "59994485": {
+        "_title": "cabe a fria cora o quente",
+        "date": "20/03/2023",
+        "chosenBy": [
+            "Xadas"
+        ]
+    },
+    "1934": {
+        "_title": "Little Women",
+        "date": "21/04/2023",
+        "chosenBy": [
+            "Braz"
+        ],
+        "year": 1868
+    },
+    "52892857": {
+        "_title": "the color purple",
+        "date": "22/05/2023",
+        "chosenBy": [
+            "Braz"
+        ]
+    },
+    "4929": {
+        "_title": "Kafka on the Shore",
+        "date": "23/06/2023",
+        "chosenBy": [
+            "NeNelson"
+        ],
+        "year": 2002
+    },
+    "251912": {
+        "_title": "Vagabond Vol 1",
+        "date": "30/07/2023",
+        "chosenBy": [
+            "Braz"
+        ]
+    },
+    "11297": {
+        "_title": "Norwegian Wood",
+        "date": "31/08/2023",
+        "chosenBy": [
+            "Braz"
+        ]
+    },
+    "6598596": {
+        "_title": "o ladr o honesto e outras hist rias",
+        "date": "01/10/2023",
+        "chosenBy": [
+            "Braz"
+        ]
+    },
+    "16322": {
+        "_title": "The A B C Murders",
+        "date": "02/11/2023",
+        "chosenBy": [
+            "Braz"
+        ],
+        "title": "The A.B.C. Murders",
+        "cover": "https://covers.openlibrary.org/b/id/14573514-L.jpg"
+    },
+    "72193": {
+        "_title": "Harry Potter and the Philosopher s Stone",
+        "date": "03/12/2023",
+        "chosenBy": [
+            "Atlas"
+        ]
+    },
+    "4406": {
+        "_title": "East of Eden",
+        "date": "04/01/2024",
+        "chosenBy": [
+            "Braz"
+        ]
+    },
+    "99664": {
+        "_title": "The Painted Veil",
+        "date": "05/02/2024",
+        "chosenBy": [
+            "Atlas"
+        ]
+    },
+    "18007564": {
+        "_title": "the martian",
+        "date": "06/03/2024",
+        "chosenBy": [
+            "Atlas"
+        ]
+    },
+    "415459": {
+        "_title": "I Have No Mouth I Must Scream",
+        "date": "07/04/2024",
+        "chosenBy": [
+            "Braz"
+        ]
+    },
+    "394535": {
+        "_title": "Blood Meridian or the Evening Redness in the West",
+        "date": "08/05/2024",
+        "chosenBy": [
+            "Atlas"
+        ]
+    },
+    "6088007": {
+        "_title": "neuromancer",
+        "date": "09/06/2024",
+        "chosenBy": [
+            "Atlas"
+        ]
+    },
+    "15956705": {
+        "_title": "a young doctor s notebook",
+        "date": "10/07/2024",
+        "chosenBy": [
+            "Braz"
+        ]
+    },
+    "192893": {
+        "_title": "Whose Body",
+        "date": "11/08/2024",
+        "chosenBy": [
+            "Braz"
+        ]
+    },
+    "11996": {
+        "_title": "I Who Have Never Known Men",
+        "date": "12/09/2024",
+        "chosenBy": [
+            "Braz"
+        ]
+    },
+    "879188": {
+        "_title": "Memorial do Convento",
+        "date": "13/10/2024",
+        "chosenBy": [
+            "Atlas"
+        ]
+    },
+    "29579": {
+        "_title": "Foundation",
+        "date": "14/11/2024",
+        "chosenBy": [
+            "Braz"
+        ]
+    },
+    "656": {
+        "_title": "War and Peace",
+        "date": "15/12/2024",
+        "chosenBy": [
+            "Atlas"
+        ]
+    },
+    "343": {
+        "_title": "Perfume",
+        "date": "29/01/2025",
+        "chosenBy": [
+            "Atlas"
+        ]
+    },
+    "401876": {
+        "_title": "The House of God",
+        "date": "02/03/2025",
+        "chosenBy": [
+            "Atlas"
+        ]
+    },
+    "2052": {
+        "_title": "The Big Sleep",
+        "date": "03/04/2025",
+        "chosenBy": [
+            "Braz"
+        ],
+        "year": 1939
+    },
+    "2429135": {
+        "_title": "The Girl With the Dragon Tattoo",
+        "date": "04/05/2025",
+        "chosenBy": [
+            "Atlas"
+        ]
+    },
+    "38599326": {
+        "_title": "1q84",
+        "date": "05/06/2025",
+        "chosenBy": [
+            "Braz"
+        ],
+        "year": 2009
+    },
+    "11": {
+        "_title": "The Hitchhiker s Guide to the Galaxy",
+        "date": "13/07/2025",
+        "chosenBy": [
+            "Braz"
+        ]
+    },
+    "11348958": {
+        "_title": "a song for lya",
+        "date": "14/08/2025",
+        "chosenBy": [
+            "Atlas"
+        ]
+    },
+    "164154": {
+        "_title": "A Canticle for Leibowitz",
+        "date": "20/09/2025",
+        "chosenBy": [
+            "Atlas"
+        ]
+    },
+    "54121": {
+        "_title": "Ensaio Sobre a Cegueira",
+        "date": "21/10/2025",
+        "chosenBy": [
+            "Atlas"
+        ],
+        "title": "Ensaio Sobre a Cegueira"
+    },
+    "1772910": {
+        "_title": "White Nights",
+        "date": "22/11/2025",
+        "chosenBy": [
+            "Braz"
+        ]
+    },
+    "57558287": {
+        "_title": "city on fire",
+        "date": "23/12/2025",
+        "chosenBy": [
+            "Braz"
+        ]
+    },
+    "53597791": {
+        "_title": "master and commander",
+        "date": "24/01/2026",
+        "chosenBy": [
+            "Atlas"
+        ]
+    },
+    "68428": {
+        "_title": "Mistborn",
+        "date": "11/03/2026",
+        "chosenBy": [
+            "Braz"
+        ]
+    },
+    "132080146": {
+        "_title": "the lion the witch and the wardrobe",
+        "date": "12/04/2026",
+        "chosenBy": [
+            "Atlas"
+        ]
+    },
+    "56783258": {
+        "_title": "cloud cuckoo land",
+        "date": "13/05/2026",
+        "chosenBy": [
+            "Braz"
+        ]
+    },
+    "55987278": {
+        "_title": "once upon a broken heart",
+        "date": "14/06/2026",
+        "chosenBy": [
+            "Joana"
+        ]
+    },
+    "13623848": {
+        "_title": "the song of achilles",
+        "date": "15/07/2026",
+        "chosenBy": [
+            "Joana"
+        ]
+    },
+    "1420": {
+        "_title": "Hamlet",
+        "date": "16/08/2026",
+        "chosenBy": [
+            "Atlas"
+        ]
+    },
+    "123675190": {
+        "_title": "the lightning thief",
+        "date": "17/09/2026",
+        "_date": "provisorio: o chat so diz 'depois do hamlet' (Hamlet 16/08-16/09, prolongado)",
+        "chosenBy": [
+            "Joana"
+        ]
+    }
+}

@@ -1,0 +1,205 @@
+.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 28px;
+    height: 68px;
+    background: linear-gradient(180deg, rgba(12, 13, 18, 0.85), rgba(12, 13, 18, 0.35));
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    width: 100vw;
+    box-sizing: border-box;
+}
+
+.navbar-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+}
+
+/* Voltar ao hub dos Biladeiros. Vai no extremo esquerdo, antes da marca, que e
+   a convencao de "subir um nivel". O texto e o separador nao sao enfeite: sem
+   eles, um circulo com uma cara numa navbar le-se como menu de conta. */
+.hub-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 12px 4px 4px;
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-lg);
+    color: var(--color-text-secondary);
+    font-family: var(--font-body);
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+    flex-shrink: 0;
+    transition: color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.hub-link:hover {
+    color: var(--color-accent);
+    border-color: var(--color-accent);
+}
+
+.hub-link:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+}
+
+.hub-link img {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    display: block;
+    flex-shrink: 0;
+}
+
+.navbar-sep {
+    width: 1px;
+    height: 24px;
+    background: var(--color-line);
+    flex-shrink: 0;
+}
+
+.navbar-brand {
+    font-family: var(--font-body);
+    font-weight: 900;
+    font-size: 22px;
+    color: var(--color-text-primary);
+    letter-spacing: -0.5px;
+    white-space: nowrap;
+}
+
+.navbar-brand .brand-accent {
+    color: var(--color-accent);
+}
+
+.navbar-brand:hover {
+    color: var(--color-text-primary);
+}
+
+.navbar-links {
+    display: flex;
+    gap: 4px;
+}
+
+.navbar-link {
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-text-secondary);
+    padding: 8px 14px;
+    border-radius: var(--radius-lg);
+    transition: color var(--transition-fast), background-color var(--transition-fast);
+}
+
+.navbar-link:hover {
+    color: var(--color-accent);
+    background-color: rgba(255, 255, 255, 0.04);
+}
+
+.navbar-link.active {
+    color: var(--color-on-accent);
+    background-color: var(--color-accent);
+}
+
+.navbar-burger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 42px;
+    height: 42px;
+    padding: 0;
+    background: none;
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.navbar-burger span {
+    display: block;
+    height: 2px;
+    width: 18px;
+    margin: 0 auto;
+    background: var(--color-text-primary);
+    border-radius: 2px;
+}
+
+.navbar-burger[aria-expanded='true'] {
+    border-color: var(--color-accent);
+}
+
+.navbar-burger:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+}
+
+@media (max-width: 700px) {
+    .navbar-left {
+        gap: 8px;
+        min-width: 0;
+    }
+
+    /* O hub fica so a foto. O nome acessivel vem do aria-label do <a>, nao
+       deste texto. */
+    .hub-link-text {
+        display: none;
+    }
+
+    .hub-link {
+        padding: 3px;
+    }
+
+    .navbar-burger {
+        display: flex;
+    }
+
+    /* Os links saem da barra e passam a drawer: apertados, encavalitavam-se
+       na marca. */
+    .navbar-links {
+        display: none;
+        position: absolute;
+        top: 68px;
+        left: 0;
+        right: 0;
+        max-height: calc(100vh - 68px);
+        overflow-y: auto;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 2px;
+        padding: 12px;
+        background: var(--color-ink2);
+        border-bottom: 1px solid var(--color-line);
+        box-shadow: var(--shadow-md);
+    }
+
+    .navbar-links.is-open {
+        display: flex;
+    }
+
+    .navbar-link {
+        width: 100%;
+        padding: 12px 14px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .navbar {
+        padding: 10px 12px;
+    }
+
+    .navbar-brand {
+        font-size: 18px;
+    }
+}

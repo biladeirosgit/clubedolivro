@@ -1,0 +1,1332 @@
+{
+    "_comment": "Gerado pelo build_book_data.py. Livros avaliados no Goodreads por cada membro, sem os do clube. So aparece no perfil, com o toggle ligado.",
+    "Geremias": [
+        {
+            "bookId": "37639959",
+            "title": "The Metamorphosis",
+            "author": "Franz Kafka",
+            "year": 1915,
+            "pages": 80,
+            "rating": 3,
+            "readAt": "16/09/2026",
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1513776470l/37639959.jpg"
+        },
+        {
+            "bookId": "243435884",
+            "title": "Spirits and Creatures of Japan",
+            "author": "Lafcadio Hearn",
+            "year": null,
+            "pages": 176,
+            "rating": 3,
+            "readAt": "18/01/2026",
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1761982414l/243435884.jpg"
+        },
+        {
+            "bookId": "41773709",
+            "title": "Alice's Adventures in Wonderland",
+            "author": "Lewis Carroll",
+            "year": 1865,
+            "pages": 148,
+            "rating": 3,
+            "readAt": "05/09/2023",
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1595902296l/41773709.jpg"
+        },
+        {
+            "bookId": "6309556",
+            "title": "1984",
+            "author": "George Orwell",
+            "year": 1949,
+            "pages": 327,
+            "rating": 4,
+            "readAt": null,
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1383241983l/6309556.jpg"
+        },
+        {
+            "bookId": "56302573",
+            "title": "Fahrenheit 451",
+            "author": "Ray Bradbury",
+            "year": 1963,
+            "pages": 208,
+            "rating": 3,
+            "readAt": null,
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1608059811l/56302573.jpg"
+        }
+    ],
+    "Braz": [
+        {
+            "bookId": "50202953",
+            "title": "Piranesi",
+            "author": "Susanna Clarke",
+            "year": 2020,
+            "pages": 245,
+            "rating": 4,
+            "readAt": "05/09/2026",
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1773750050l/50202953.jpg"
+        },
+        {
+            "bookId": "34066798",
+            "title": "A Gentleman in Moscow",
+            "author": "Amor Towles",
+            "year": 2016,
+            "pages": 495,
+            "rating": 5,
+            "readAt": "29/08/2026",
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1718915012l/34066798.jpg"
+        },
+        {
+            "bookId": "60531406",
+            "title": "Tress of the Emerald Sea",
+            "author": "Brandon Sanderson",
+            "year": 2023,
+            "pages": 443,
+            "rating": 4,
+            "readAt": "06/08/2026",
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1672574587l/60531406.jpg"
+        },
+        {
+            "bookId": "246225",
+            "title": "Strong Poison",
+            "author": "Dorothy L. Sayers",
+            "year": 1930,
+            "pages": 240,
+            "rating": 4,
+            "readAt": "27/05/2026",
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1486963427l/246225.jpg"
+        },
+        {
+            "bookId": "222490389",
+            "title": "Alchemised",
+            "author": "SenLinYu",
+            "year": 2025,
+            "pages": 1030,
+            "rating": 5,
+            "readAt": "12/05/2026",
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1737131981l/222490389.jpg"
+        },
+        {
+            "bookId": "65605",
+            "title": "The Magician’s Nephew",
+            "author": "C.S. Lewis",
+            "year": 1955,
+            "pages": 221,
+            "rating": 4,
+            "readAt": "05/04/2026",
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1308814770l/65605.jpg"
+        },
+        {
+            "bookId": "26450689",
+            "title": "Investing 101",
+            "author": "Michele Cagan",
+            "year": 2016,
+            "pages": 264,
+            "rating": 2,
+            "readAt": "03/04/2026",
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1444634187l/26450689.jpg"
+        },
+        {
+            "bookId": "2767793",
+            "title": "The Hero of Ages",
+            "author": "Brandon Sanderson",
+            "year": 2008,
+            "pages": 572,
+            "rating": 5,
+            "readAt": "28/03/2026",
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1628563911l/2767793.jpg"
+        },
+        {
+            "bookId": "41804",
+            "title": "I, Robot",
+            "author": "Isaac Asimov",
+            "year": 1950,
+            "pages": 224,
+            "rating": 5,
+            "readAt": "27/01/2026",
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1609035271l/41804.jpg"
+        },
+        {
+            "bookId": "50398",
+            "title": "Northanger Abbey",
+            "author": "Jane Austen",
+            "year": 1817,
+            "pages": 260,
+            "rating": 3,
+            "readAt": "29/12/2025",
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1388201718l/50398.jpg"
+        },
+        {
+            "bookId": "61242426",
+            "title": "Legends & Lattes",
+            "author": "Travis Baldree",
+            "year": 2022,
+            "pages": 296,
+            "rating": 4,
+            "readAt": "01/12/2025",
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1654581271l/61242426.jpg"
+        },
+        {
+            "bookId": "60623039",
+            "title": "Horimiya, Vol. 3",
+            "author": "Hero",
+            "year": 2013,
+            "pages": 194,
+            "rating": 4,
+            "readAt": null,
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1647346178l/60623039.jpg"
+        },
+        {
+            "bookId": "910024",
+            "title": "Elephants Can Remember",
+            "author": "Agatha Christie",
+            "year": 1972,
+            "pages": 299,
+            "rating": 3,
+            "readAt": "11/09/2025",
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1701947020l/910024.jpg"
+        },
+        {
+            "bookId": "55014882",
+            "title": "The Restaurant at the End of the Universe",
+            "author": "Douglas Adams",
+            "year": 1980,
+            "pages": 205,
+            "rating": 4,
+            "readAt": "27/07/2025",
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1610731269l/55014882.jpg"
+        },
+        {
+            "bookId": "60910844",
+            "title": "Remarkably Bright Creatures",
+            "author": "Shelby Van Pelt",
+            "year": 2022,
+            "pages": 358,
+            "rating": 4,
+            "readAt": "19/07/2025",
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1669554357l/60910844.jpg"
+        },
+        {
+            "bookId": "13452035",
+            "title": "Five Little Pigs",
+            "author": "Agatha Christie",
+            "year": 1942,
+            "pages": 277,
+            "rating": 4,
+            "readAt": "26/06/2025",
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1657277332l/13452035.jpg"
+        },
+        {
+            "bookId": "2049",
+            "title": "The High Window",
+            "author": "Raymond Chandler",
+            "year": 1942,
+            "pages": 272,
+            "rating": 4,
+            "readAt": "01/05/2025",
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1466754245l/2049.jpg"
+        },
+        {
+            "bookId": "68429",
+            "title": "The Well of Ascension",
+            "author": "Brandon Sanderson",
+            "year": 2007,
+            "pages": 590,
+            "rating": 4,
+            "readAt": "22/04/2025",
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1619538925l/68429.jpg"
+        },
+        {
+            "bookId": "46262177",
+            "title": "Farewell, My Lovely",
+            "author": "Raymond Chandler",
+            "year": 1940,
+            "pages": 306,
+            "rating": 5,
+            "readAt": "09/03/2025",
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1560281655l/46262177.jpg"
+        },
+        {
+            "bookId": "43685241",
+            "title": "Life for Sale",
+            "author": "Yukio Mishima",
+            "year": 1968,
+            "pages": 192,
+            "rating": 4,
+            "readAt": "21/02/2025",
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1554171978l/43685241.jpg"
+        },
+        {
+            "bookId": "67896",
+            "title": "Tao Te Ching",
+            "author": "Lao Tzu",
+            "year": -350,
+            "pages": 107,
+            "rating": 3,
+            "readAt": "30/01/2025",
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1333578861l/67896.jpg"
+        },
+        {
+            "bookId": "14817",
+            "title": "A Scanner Darkly",
+            "author": "Philip K. Dick",
+            "year": 1977,
+            "pages": 217,
+            "rating": 3,
+            "readAt": "29/12/2024",
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1388737865l/14817.jpg"
+        },
+        {
+            "bookId": "18464555",
+            "title": "King Arthur and His Knights: Selected Tales",
+            "author": "Thomas Malory",
+            "year": 1923,
+            "pages": 165,
+            "rating": 3,
+            "readAt": "05/02/2023",
+            "cover": null
+        },
+        {
+            "bookId": "132391",
+            "title": "The Little Mermaid",
+            "author": "Hans Christian Andersen",
+            "year": 1836,
+            "pages": 48,
+            "rating": 3,
+            "readAt": "01/12/2024",
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1309204955l/132391.jpg"
+        },
+        {
+            "bookId": "1397673",
+            "title": "Mar Morto",
+            "author": "Jorge Amado",
+            "year": 1936,
+            "pages": 230,
+            "rating": 3,
+            "readAt": "14/10/2024",
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1207782294l/1397673.jpg"
+        },
+        {
+            "bookId": "34511849",
+            "title": "Demian",
+            "author": "Hermann Hesse",
+            "year": 1919,
+            "pages": 135,
+            "rating": 4,
+            "readAt": "21/09/2024",
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1590494407l/34511849.jpg"
+        },
+        {
+            "bookId": "34326633",
+            "title": "Dune Messiah",
+            "author": "Frank Herbert",
+            "year": 1969,
+            "pages": 304,
+            "rating": 4,
+            "readAt": "15/09/2024",
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1656214046l/34326633.jpg"
+        },
+        {
+            "bookId": "133348445",
+            "title": "Of Mice and Men",
+            "author": "John Steinbeck",
+            "year": 1937,
+            "pages": 0,
+            "rating": 3,
+            "readAt": "02/09/2024",
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1699112457l/133348445.jpg"
+        },
+        {
+            "bookId": "7933650",
+            "title": "The Catcher in the Rye",
+            "author": "J.D. Salinger",
+            "year": 1951,
+            "pages": 230,
+            "rating": 3,
+            "readAt": "02/09/2024",
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1480444914l/7933650.jpg"
+        },
+        {
+            "bookId": "59136153",
+            "title": "Rita Hayworth and Shawshank Redemption",
+            "author": "Stephen  King",
+            "year": 1982,
+            "pages": 129,
+            "rating": 4,
+            "readAt": "28/08/2024",
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1633271803l/59136153.jpg"
+        },
+        {
+            "bookId": "34053202",
+            "title": "Lord Peter Views the Body",
+            "author": "Dorothy L. Sayers",
+            "year": 1928,
+            "pages": 352,
+            "rating": 4,
+            "readAt": "26/08/2024",
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1485740414l/34053202.jpg"
+        },
+        {
+            "bookId": "12296",
+            "title": "The Scarlet Letter",
+            "author": "Nathaniel Hawthorne",
+            "year": 1850,
+            "pages": 279,
+            "rating": 3,
+            "readAt": "11/08/2024",
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1404810944l/12296.jpg"
+        },
+        {
+            "bookId": "25480342",
+            "title": "A Monster Calls",
+            "author": "Patrick Ness",
+            "year": 2011,
+            "pages": 237,
+            "rating": 4,
+            "readAt": "06/07/2024",
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1430763000l/25480342.jpg"
+        },
+        {
+            "bookId": "181133",
+            "title": "And Then There Were None",
+            "author": "Agatha Christie",
+            "year": 1939,
+            "pages": 250,
+            "rating": 4,
+            "readAt": null,
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1527548555l/181133.jpg"
+        },
+        {
+            "bookId": "1142432",
+            "title": "The Merchant of Venice",
+            "author": "William Shakespeare",
+            "year": 1596,
+            "pages": 128,
+            "rating": 4,
+            "readAt": "11/06/2024",
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1414348124l/1142432.jpg"
+        },
+        {
+            "bookId": "52544164",
+            "title": "On Earth We’re Briefly Gorgeous",
+            "author": "Ocean Vuong",
+            "year": 2019,
+            "pages": 246,
+            "rating": 4,
+            "readAt": "14/05/2024",
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1607857168l/52544164.jpg"
+        },
+        {
+            "bookId": "11222940",
+            "title": "No Longer Human",
+            "author": "Osamu Dazai",
+            "year": 1948,
+            "pages": 177,
+            "rating": 4,
+            "readAt": "27/04/2024",
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1481890798l/11222940.jpg"
+        },
+        {
+            "bookId": "59815948",
+            "title": "The Waves",
+            "author": "Virginia Woolf",
+            "year": 1931,
+            "pages": 288,
+            "rating": 3,
+            "readAt": "05/04/2024",
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1644432528l/59815948.jpg"
+        },
+        {
+            "bookId": "10194157",
+            "title": "Shadow and Bone",
+            "author": "Leigh Bardugo",
+            "year": 2012,
+            "pages": 358,
+            "rating": 3,
+            "readAt": "18/03/2024",
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1339533695l/10194157.jpg"
+        },
+        {
+            "bookId": "58446227",
+            "title": "Sea of Tranquility",
+            "author": "Emily St. John Mandel",
+            "year": 2022,
+            "pages": 259,
+            "rating": 3,
+            "readAt": "09/03/2024",
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1626710416l/58446227.jpg"
+        },
+        {
+            "bookId": "58690308",
+            "title": "Book Lovers",
+            "author": "Emily Henry",
+            "year": 2022,
+            "pages": 377,
+            "rating": 4,
+            "readAt": "02/03/2024",
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1638867089l/58690308.jpg"
+        },
+        {
+            "bookId": "160149",
+            "title": "The Call of Cthulhu and Other Weird Stories",
+            "author": "H.P. Lovecraft",
+            "year": 1928,
+            "pages": 420,
+            "rating": 4,
+            "readAt": "17/02/2024",
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1755431324l/160149.jpg"
+        },
+        {
+            "bookId": "54798175",
+            "title": "Later",
+            "author": "Stephen  King",
+            "year": 2021,
+            "pages": 248,
+            "rating": 4,
+            "readAt": "28/12/2023",
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1596448456l/54798175.jpg"
+        },
+        {
+            "bookId": "12735067",
+            "title": "The Informer",
+            "author": "Liam O'Flaherty",
+            "year": 1925,
+            "pages": 228,
+            "rating": 3,
+            "readAt": "22/11/2023",
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1500923557l/12735067.jpg"
+        },
+        {
+            "bookId": "58535635",
+            "title": "Death's End",
+            "author": "Liu Cixin",
+            "year": 2010,
+            "pages": 736,
+            "rating": 4,
+            "readAt": "20/10/2023",
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1632379328l/58535635.jpg"
+        },
+        {
+            "bookId": "38462",
+            "title": "Giovanni’s Room",
+            "author": "James Baldwin",
+            "year": 1956,
+            "pages": 159,
+            "rating": 4,
+            "readAt": "16/09/2023",
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1501485157l/38462.jpg"
+        },
+        {
+            "bookId": "4671",
+            "title": "The Great Gatsby",
+            "author": "F. Scott Fitzgerald",
+            "year": 1925,
+            "pages": 180,
+            "rating": 4,
+            "readAt": "31/08/2023",
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1738790966l/4671.jpg"
+        },
+        {
+            "bookId": "12857",
+            "title": "The Gambler",
+            "author": "Fyodor Dostoevsky",
+            "year": 1866,
+            "pages": 188,
+            "rating": 5,
+            "readAt": "25/08/2023",
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1751435148l/12857.jpg"
+        },
+        {
+            "bookId": "184591",
+            "title": "The Innocence of Father Brown",
+            "author": "G.K. Chesterton",
+            "year": 1911,
+            "pages": 232,
+            "rating": 4,
+            "readAt": "18/08/2023",
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1388284048l/184591.jpg"
+        },
+        {
+            "bookId": "36592121",
+            "title": "The Iliad",
+            "author": "Homer",
+            "year": -750,
+            "pages": 352,
+            "rating": 3,
+            "readAt": "09/08/2023",
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1510637420l/36592121.jpg"
+        },
+        {
+            "bookId": "42373027",
+            "title": "Paradise Lost",
+            "author": "John Milton",
+            "year": 1667,
+            "pages": 382,
+            "rating": 4,
+            "readAt": "30/12/2022",
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1541423347l/42373027.jpg"
+        },
+        {
+            "bookId": "51960607",
+            "title": "Slaughterhouse-Five",
+            "author": "Kurt Vonnegut Jr.",
+            "year": 1969,
+            "pages": 192,
+            "rating": 5,
+            "readAt": "24/07/2023",
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1562097192l/51960607._SX318_SY475_.jpg"
+        },
+        {
+            "bookId": "51045389",
+            "title": "Station Eleven",
+            "author": "Emily St. John Mandel",
+            "year": 2014,
+            "pages": 339,
+            "rating": 4,
+            "readAt": "22/07/2023",
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1690730332l/51045389.jpg"
+        },
+        {
+            "bookId": "32294609",
+            "title": "The Unpleasantness at the Bellona Club",
+            "author": "Dorothy L. Sayers",
+            "year": 1928,
+            "pages": 279,
+            "rating": 4,
+            "readAt": "18/07/2023",
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1475004115l/32294609.jpg"
+        },
+        {
+            "bookId": "485894",
+            "title": "The Metamorphosis",
+            "author": "Franz Kafka",
+            "year": 1915,
+            "pages": 201,
+            "rating": 4,
+            "readAt": "27/06/2023",
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1646444605l/485894.jpg"
+        },
+        {
+            "bookId": "19395553",
+            "title": "Our Mathematical Universe: My Quest for the Ultimate Nature of Reality",
+            "author": "Max Tegmark",
+            "year": 2012,
+            "pages": 432,
+            "rating": 4,
+            "readAt": "21/04/2023",
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1386860656l/19395553.jpg"
+        },
+        {
+            "bookId": "55575967",
+            "title": "Chainsaw Man, Vol. 1: Dog and Chainsaw",
+            "author": "Tatsuki Fujimoto",
+            "year": 2019,
+            "pages": 192,
+            "rating": 4,
+            "readAt": null,
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1617389215l/55575967.jpg"
+        },
+        {
+            "bookId": "64266964",
+            "title": "The martyrdom of man",
+            "author": "William Winwood Reade",
+            "year": 1872,
+            "pages": 612,
+            "rating": 4,
+            "readAt": "07/03/2023",
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1677856604l/64266964.jpg"
+        },
+        {
+            "bookId": "23168817",
+            "title": "The Dark Forest",
+            "author": "Liu Cixin",
+            "year": 2008,
+            "pages": 512,
+            "rating": 4,
+            "readAt": "04/03/2023",
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1412064931l/23168817.jpg"
+        },
+        {
+            "bookId": "736131",
+            "title": "The Valley of Fear",
+            "author": "Arthur Conan Doyle",
+            "year": 1914,
+            "pages": 218,
+            "rating": 4,
+            "readAt": "11/02/2023",
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1390250081l/736131.jpg"
+        },
+        {
+            "bookId": "20518872",
+            "title": "The Three-Body Problem",
+            "author": "Liu Cixin",
+            "year": 2006,
+            "pages": 472,
+            "rating": 5,
+            "readAt": "30/01/2023",
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1415428227l/20518872.jpg"
+        },
+        {
+            "bookId": "57458",
+            "title": "Fools Crow",
+            "author": "James Welch",
+            "year": 1986,
+            "pages": 400,
+            "rating": 4,
+            "readAt": "18/01/2023",
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1386924894l/57458.jpg"
+        },
+        {
+            "bookId": "8921",
+            "title": "The Hound of the Baskervilles",
+            "author": "Arthur Conan Doyle",
+            "year": 1902,
+            "pages": 256,
+            "rating": 4,
+            "readAt": "17/12/2022",
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1355929358l/8921.jpg"
+        },
+        {
+            "bookId": "61439040",
+            "title": "1984",
+            "author": "George Orwell",
+            "year": 1949,
+            "pages": 368,
+            "rating": 4,
+            "readAt": null,
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1657781256l/61439040.jpg"
+        },
+        {
+            "bookId": "32905475",
+            "title": "Unnatural Death",
+            "author": "Dorothy L. Sayers",
+            "year": 1927,
+            "pages": 308,
+            "rating": 5,
+            "readAt": "21/11/2022",
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1478552634l/32905475.jpg"
+        },
+        {
+            "bookId": "52684551",
+            "title": "The Prince",
+            "author": "Niccolò Machiavelli",
+            "year": 1513,
+            "pages": 166,
+            "rating": 3,
+            "readAt": "09/11/2022",
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1617265100l/52684551.jpg"
+        },
+        {
+            "bookId": "74829",
+            "title": "The Murder on the Links",
+            "author": "Agatha Christie",
+            "year": 1923,
+            "pages": 320,
+            "rating": 4,
+            "readAt": "29/10/2022",
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1701946239l/74829.jpg"
+        },
+        {
+            "bookId": "32710750",
+            "title": "The Invisible Man",
+            "author": "H.G. Wells",
+            "year": 1897,
+            "pages": 192,
+            "rating": 3,
+            "readAt": "23/10/2022",
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1476948703l/32710750.jpg"
+        },
+        {
+            "bookId": "13455782",
+            "title": "Shatter Me",
+            "author": "Tahereh Mafi",
+            "year": 2011,
+            "pages": 338,
+            "rating": 3,
+            "readAt": "14/10/2022",
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1338924054l/13455782._SX318_SY475_.jpg"
+        },
+        {
+            "bookId": "816084",
+            "title": "The Mysterious Affair at Styles",
+            "author": "Agatha Christie",
+            "year": 1920,
+            "pages": 304,
+            "rating": 4,
+            "readAt": null,
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1482495814l/816084.jpg"
+        },
+        {
+            "bookId": "15994537",
+            "title": "Wuthering Heights",
+            "author": "Emily Brontë",
+            "year": 1847,
+            "pages": 360,
+            "rating": 4,
+            "readAt": null,
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1546419424l/15994537.jpg"
+        },
+        {
+            "bookId": "9631165",
+            "title": "The Spy Who Came in from the Cold",
+            "author": "John le Carré",
+            "year": 1963,
+            "pages": 264,
+            "rating": 4,
+            "readAt": null,
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1288669288l/9631165.jpg"
+        },
+        {
+            "bookId": "11232016",
+            "title": "The Stand",
+            "author": "Stephen  King",
+            "year": 1978,
+            "pages": 1325,
+            "rating": 4,
+            "readAt": "21/08/2022",
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1370940533l/11232016.jpg"
+        },
+        {
+            "bookId": "14801186",
+            "title": "The Time Machine",
+            "author": "H.G. Wells",
+            "year": 1895,
+            "pages": 106,
+            "rating": 4,
+            "readAt": "20/09/2022",
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1405872046l/14801186.jpg"
+        },
+        {
+            "bookId": "8045416",
+            "title": "To Kill a Mockingbird",
+            "author": "Harper Lee",
+            "year": 1960,
+            "pages": 309,
+            "rating": 5,
+            "readAt": "28/09/2022",
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1327156320l/8045416.jpg"
+        },
+        {
+            "bookId": "22798799",
+            "title": "Mushoku Tensei: Jobless Reincarnation, Vol. 1",
+            "author": "Rifujin na Magonote",
+            "year": 2014,
+            "pages": 312,
+            "rating": 5,
+            "readAt": null,
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1406168841l/22798799.jpg"
+        },
+        {
+            "bookId": "608474",
+            "title": "The Sign of Four",
+            "author": "Arthur Conan Doyle",
+            "year": 1890,
+            "pages": 129,
+            "rating": 4,
+            "readAt": null,
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1739306203l/608474.jpg"
+        },
+        {
+            "bookId": "6257496",
+            "title": "The Name of the Rose",
+            "author": "Umberto Eco",
+            "year": 1980,
+            "pages": 502,
+            "rating": 3,
+            "readAt": null,
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1234715778l/6257496.jpg"
+        },
+        {
+            "bookId": "2767052",
+            "title": "The Hunger Games",
+            "author": "Suzanne Collins",
+            "year": 2008,
+            "pages": 374,
+            "rating": 3,
+            "readAt": null,
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1586722975l/2767052.jpg"
+        },
+        {
+            "bookId": "102868",
+            "title": "A Study in Scarlet",
+            "author": "Arthur Conan Doyle",
+            "year": 1887,
+            "pages": 123,
+            "rating": 4,
+            "readAt": null,
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1519031842l/102868.jpg"
+        },
+        {
+            "bookId": "7126",
+            "title": "The Count of Monte Cristo",
+            "author": "Alexandre Dumas",
+            "year": 1846,
+            "pages": 1276,
+            "rating": 5,
+            "readAt": null,
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1724863997l/7126.jpg"
+        },
+        {
+            "bookId": "33135939",
+            "title": "Clouds of Witness",
+            "author": "Dorothy L. Sayers",
+            "year": 1926,
+            "pages": 320,
+            "rating": 5,
+            "readAt": "15/09/2022",
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1480248335l/33135939.jpg"
+        },
+        {
+            "bookId": "170448",
+            "title": "Animal Farm",
+            "author": "George Orwell",
+            "year": 1945,
+            "pages": 141,
+            "rating": 4,
+            "readAt": "03/09/2022",
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1325861570l/170448.jpg"
+        },
+        {
+            "bookId": "15699999",
+            "title": "Trouble is My Business",
+            "author": "Raymond Chandler",
+            "year": 1950,
+            "pages": 248,
+            "rating": 5,
+            "readAt": "24/09/2022",
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1339355103l/15699999.jpg"
+        },
+        {
+            "bookId": "57302636",
+            "title": "The Green Mile",
+            "author": "Stephen  King",
+            "year": 1996,
+            "pages": 430,
+            "rating": 4,
+            "readAt": "02/10/2022",
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1614814713l/57302636.jpg"
+        },
+        {
+            "bookId": "16644104",
+            "title": "Watership Down",
+            "author": "Richard  Adams",
+            "year": 1972,
+            "pages": 474,
+            "rating": 4,
+            "readAt": "09/10/2022",
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1494335864l/16644104.jpg"
+        },
+        {
+            "bookId": "18667307",
+            "title": "Tokyo Ghoul, Vol. 1",
+            "author": "Sui Ishida",
+            "year": 2012,
+            "pages": 224,
+            "rating": 3,
+            "readAt": null,
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1381715006l/18667307.jpg"
+        },
+        {
+            "bookId": "17694052",
+            "title": "One-Punch Man, Vol. 1",
+            "author": "ONE",
+            "year": 2012,
+            "pages": 200,
+            "rating": 4,
+            "readAt": null,
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1364262171l/17694052.jpg"
+        },
+        {
+            "bookId": "36100762",
+            "title": "Kaguya-sama: Love Is War, Vol. 1",
+            "author": "Aka Akasaka",
+            "year": 2016,
+            "pages": 216,
+            "rating": 4,
+            "readAt": null,
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1715721936l/36100762.jpg"
+        },
+        {
+            "bookId": "7787959",
+            "title": "Vinland Saga, Vol. 1",
+            "author": "Makoto Yukimura",
+            "year": 2006,
+            "pages": 213,
+            "rating": 5,
+            "readAt": null,
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1350285863l/7787959.jpg"
+        },
+        {
+            "bookId": "30",
+            "title": "J.R.R. Tolkien 4-Book Boxed Set: The Hobbit and The Lord of the Rings",
+            "author": "J.R.R. Tolkien",
+            "year": 1954,
+            "pages": 1728,
+            "rating": 4,
+            "readAt": null,
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1656625315l/30.jpg"
+        },
+        {
+            "bookId": "35251116",
+            "title": "Dr. Stone, Vol. 1",
+            "author": "Riichiro Inagaki",
+            "year": 2017,
+            "pages": 192,
+            "rating": 4,
+            "readAt": null,
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1498756288l/35251116.jpg"
+        },
+        {
+            "bookId": "8798822",
+            "title": "JoJo's Bizarre Adventure: Part 6—Stone Ocean, Vol. 1",
+            "author": "Hirohiko Araki",
+            "year": 2000,
+            "pages": 208,
+            "rating": 4,
+            "readAt": null,
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1329939939l/8798822.jpg"
+        },
+        {
+            "bookId": "7698607",
+            "title": "JoJo's Bizarre Adventure: Part 7—Steel Ball Run, Vol. 1",
+            "author": "Hirohiko Araki",
+            "year": 2003,
+            "pages": 160,
+            "rating": 5,
+            "readAt": null,
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1328111440l/7698607.jpg"
+        },
+        {
+            "bookId": "22545983",
+            "title": "JoJo's Bizarre Adventure: Part 1—Phantom Blood, Vol. 1",
+            "author": "Hirohiko Araki",
+            "year": 1987,
+            "pages": 245,
+            "rating": 3,
+            "readAt": null,
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1433360029l/22545983.jpg"
+        },
+        {
+            "bookId": "42858205",
+            "title": "Beastars, Vol. 1",
+            "author": "Paru Itagaki",
+            "year": 2017,
+            "pages": 212,
+            "rating": 5,
+            "readAt": null,
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1557052796l/42858205.jpg"
+        },
+        {
+            "bookId": "28705056",
+            "title": "Early Years",
+            "author": "TurtleMe",
+            "year": null,
+            "pages": 247,
+            "rating": 4,
+            "readAt": null,
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1759623080l/28705056.jpg"
+        },
+        {
+            "bookId": "16155151",
+            "title": "Horimiya, Vol. 1",
+            "author": "Hero",
+            "year": 2012,
+            "pages": 184,
+            "rating": 4,
+            "readAt": null,
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1727083089l/16155151.jpg"
+        },
+        {
+            "bookId": "32708007",
+            "title": "Demon Slayer: Kimetsu no Yaiba, Vol. 1",
+            "author": "Koyoharu Gotouge",
+            "year": 2016,
+            "pages": 197,
+            "rating": 4,
+            "readAt": null,
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1476910723l/32708007.jpg"
+        },
+        {
+            "bookId": "25074597",
+            "title": "My Hero Academia, Vol. 1",
+            "author": "Kohei Horikoshi",
+            "year": 2014,
+            "pages": 189,
+            "rating": 3,
+            "readAt": null,
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1426466596l/25074597.jpg"
+        },
+        {
+            "bookId": "52961491",
+            "title": "Spy x Family, Vol. 1",
+            "author": "Tatsuya Endo",
+            "year": 2019,
+            "pages": 212,
+            "rating": 5,
+            "readAt": null,
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1562168651l/52961491._SX318_SY475_.jpg"
+        },
+        {
+            "bookId": "13154150",
+            "title": "Attack on Titan, Vol. 1",
+            "author": "Hajime Isayama",
+            "year": 2010,
+            "pages": 193,
+            "rating": 5,
+            "readAt": null,
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1769709110l/13154150.jpg"
+        },
+        {
+            "bookId": "40869704",
+            "title": "Seirei Gensouki: Spirit Chronicles Volume 1",
+            "author": "Yuri Kitayama",
+            "year": 2015,
+            "pages": 223,
+            "rating": 2,
+            "readAt": null,
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1531960719l/40869704.jpg"
+        },
+        {
+            "bookId": "41085104",
+            "title": "Classroom of the Elite (Light Novel) Vol. 1",
+            "author": "Syougo Kinugasa",
+            "year": 2015,
+            "pages": 387,
+            "rating": 4,
+            "readAt": null,
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1540974678l/41085104.jpg"
+        },
+        {
+            "bookId": "34198833",
+            "title": "How a Realist Hero Rebuilt the Kingdom, Volume 1",
+            "author": "Dojyomaru",
+            "year": 2016,
+            "pages": 285,
+            "rating": 3,
+            "readAt": null,
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1486539290l/34198833.jpg"
+        },
+        {
+            "bookId": "44643642",
+            "title": "Ascendance of a Bookworm (Light Novel), Part 1 Volume 1",
+            "author": "Miya Kazuki",
+            "year": 2015,
+            "pages": 297,
+            "rating": 5,
+            "readAt": null,
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1553716310l/44643642.jpg"
+        }
+    ],
+    "Atlas": [
+        {
+            "bookId": "392297",
+            "title": "Sin City Volume 1: The Hard Goodbye",
+            "author": "Frank Miller",
+            "year": 1991,
+            "pages": 208,
+            "rating": 4,
+            "readAt": null,
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1470924635l/392297.jpg"
+        },
+        {
+            "bookId": "18135",
+            "title": "Romeo and Juliet",
+            "author": "William Shakespeare",
+            "year": 1590,
+            "pages": 281,
+            "rating": 4,
+            "readAt": "08/08/2023",
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1629680008l/18135.jpg"
+        },
+        {
+            "bookId": "7370962",
+            "title": "A Little History of the World",
+            "author": "E.H. Gombrich",
+            "year": 1936,
+            "pages": 320,
+            "rating": 5,
+            "readAt": null,
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1576184697l/7370962.jpg"
+        },
+        {
+            "bookId": "41899",
+            "title": "Fantastic Beasts and Where to Find Them",
+            "author": "Newt Scamander",
+            "year": 2001,
+            "pages": 128,
+            "rating": 5,
+            "readAt": null,
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1303738520l/41899.jpg"
+        },
+        {
+            "bookId": "3950967",
+            "title": "The Tales of Beedle the Bard",
+            "author": "J.K. Rowling",
+            "year": 2008,
+            "pages": 105,
+            "rating": 4,
+            "readAt": null,
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1630876355l/3950967.jpg"
+        },
+        {
+            "bookId": "35075701",
+            "title": "Solaris",
+            "author": "Stanisław Lem",
+            "year": 1961,
+            "pages": 320,
+            "rating": 4,
+            "readAt": "07/08/2023",
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1494079997l/35075701.jpg"
+        },
+        {
+            "bookId": "2094",
+            "title": "A Briefer History of Time",
+            "author": "Stephen W. Hawking",
+            "year": 2005,
+            "pages": 176,
+            "rating": 5,
+            "readAt": null,
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1386924782l/2094.jpg"
+        },
+        {
+            "bookId": "40198846",
+            "title": "A Brief History of Time",
+            "author": "Stephen W. Hawking",
+            "year": 1988,
+            "pages": 226,
+            "rating": 5,
+            "readAt": "25/07/2023",
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1527090163l/40198846.jpg"
+        }
+    ],
+    "NeNelson": [
+        {
+            "bookId": "899492",
+            "title": "The Tell-Tale Heart",
+            "author": "Edgar Allan Poe",
+            "year": 1843,
+            "pages": 31,
+            "rating": 4,
+            "readAt": null,
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1534247939l/899492.jpg"
+        },
+        {
+            "bookId": "5297",
+            "title": "The Picture of Dorian Gray",
+            "author": "Oscar Wilde",
+            "year": 1890,
+            "pages": 272,
+            "rating": 4,
+            "readAt": null,
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1546103428l/5297.jpg"
+        },
+        {
+            "bookId": "67896",
+            "title": "Tao Te Ching",
+            "author": "Lao Tzu",
+            "year": -350,
+            "pages": 107,
+            "rating": 2,
+            "readAt": null,
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1333578861l/67896.jpg"
+        },
+        {
+            "bookId": "209576",
+            "title": "In the Buddha's Words: An Anthology of Discourses from the Pali Canon (The Teachings of the Buddha)",
+            "author": "Venerable Bhikkhu Bodhi",
+            "year": 2005,
+            "pages": 486,
+            "rating": 3,
+            "readAt": null,
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1428915308l/209576.jpg"
+        },
+        {
+            "bookId": "43787527",
+            "title": "SELL LIKE CRAZY: How to Get As Many Clients, Customers and Sales As You Can Possibly Handle",
+            "author": "Sabri Suby",
+            "year": 2019,
+            "pages": 307,
+            "rating": 3,
+            "readAt": "01/01/2023",
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1548823837l/43787527.jpg"
+        },
+        {
+            "bookId": "828483",
+            "title": "The Killing",
+            "author": "Robert Muchamore",
+            "year": 2005,
+            "pages": 306,
+            "rating": 4,
+            "readAt": null,
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1409557087l/828483.jpg"
+        },
+        {
+            "bookId": "1303564",
+            "title": "Maximum Security",
+            "author": "Robert Muchamore",
+            "year": 2005,
+            "pages": 277,
+            "rating": 4,
+            "readAt": null,
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1357225650l/1303564.jpg"
+        },
+        {
+            "bookId": "1291211",
+            "title": "Class A",
+            "author": "Robert Muchamore",
+            "year": 2004,
+            "pages": 291,
+            "rating": 4,
+            "readAt": null,
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1356698938l/1291211.jpg"
+        },
+        {
+            "bookId": "1166131",
+            "title": "The Recruit",
+            "author": "Robert Muchamore",
+            "year": 2004,
+            "pages": 342,
+            "rating": 4,
+            "readAt": null,
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1328000064l/1166131.jpg"
+        },
+        {
+            "bookId": "57885953",
+            "title": "My Vampire System",
+            "author": "Jack K. Sherwin",
+            "year": null,
+            "pages": null,
+            "rating": 2,
+            "readAt": null,
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1619639284l/57885953.jpg"
+        },
+        {
+            "bookId": "28705056",
+            "title": "Early Years",
+            "author": "TurtleMe",
+            "year": null,
+            "pages": 247,
+            "rating": 4,
+            "readAt": null,
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1759623080l/28705056.jpg"
+        },
+        {
+            "bookId": "22798799",
+            "title": "Mushoku Tensei: Jobless Reincarnation, Vol. 1",
+            "author": "Rifujin na Magonote",
+            "year": 2014,
+            "pages": 312,
+            "rating": 5,
+            "readAt": null,
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1406168841l/22798799.jpg"
+        },
+        {
+            "bookId": "41085104",
+            "title": "Classroom of the Elite (Light Novel) Vol. 1",
+            "author": "Syougo Kinugasa",
+            "year": 2015,
+            "pages": 387,
+            "rating": 4,
+            "readAt": null,
+            "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1540974678l/41085104.jpg"
+        }
+    ],
+    "Cludos": []
+}

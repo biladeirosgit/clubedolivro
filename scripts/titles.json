@@ -1,0 +1,39 @@
+{
+    "_comment": "Titulos a mostrar no site, por ID do Goodreads, para livros do clube e das estantes do perfil. Regra: titulo em ingles, exceto livros escritos originalmente em portugues, que ficam com o titulo portugues (pomos aqui o proprio titulo para o pipeline nao avisar). O title do bookMeta.json manda sobre este ficheiro.",
+
+    "59994485": "Cabeça Fria, Coração Quente",
+    "879188": "Memorial do Convento",
+    "54121": "Ensaio Sobre a Cegueira",
+    "1397673": "Mar Morto",
+
+    "6598596": "The Honest Thief and Other Stories",
+
+    "37639959": "The Metamorphosis",
+    "243435884": "Spirits and Creatures of Japan",
+    "41773709": "Alice's Adventures in Wonderland",
+    "56302573": "Fahrenheit 451",
+    "12735067": "The Informer",
+    "9631165": "The Spy Who Came in from the Cold",
+    "6257496": "The Name of the Rose",
+    "7370962": "A Little History of the World",
+    "36592121": "The Iliad",
+
+    "60623039": "Horimiya, Vol. 3",
+    "16155151": "Horimiya, Vol. 1",
+    "18667307": "Tokyo Ghoul, Vol. 1",
+    "7787959": "Vinland Saga, Vol. 1",
+    "35251116": "Dr. Stone, Vol. 1",
+    "52961491": "Spy x Family, Vol. 1",
+    "17694052": "One-Punch Man, Vol. 1",
+    "22798799": "Mushoku Tensei: Jobless Reincarnation, Vol. 1",
+    "8798822": "JoJo's Bizarre Adventure: Part 6—Stone Ocean, Vol. 1",
+    "7698607": "JoJo's Bizarre Adventure: Part 7—Steel Ball Run, Vol. 1",
+    "32708007": "Demon Slayer: Kimetsu no Yaiba, Vol. 1",
+
+    "133348445": "Of Mice and Men",
+    "1142432": "The Merchant of Venice",
+    "59815948": "The Waves",
+    "57458": "Fools Crow",
+    "42373027": "Paradise Lost",
+    "26450689": "Investing 101"
+}

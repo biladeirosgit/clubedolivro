@@ -1,0 +1,86 @@
+/* Bolha que so aparece no hover (ou no foco, para teclado e toque). Serve para
+   detalhe que explica um numero mas que nao merece ocupar a linha toda: fica
+   fora do fluxo, portanto revela-la nao empurra nada. */
+.hover-anchor {
+    position: relative;
+}
+
+/* Quando a ancora e a propria linha (e nao um icone), nada indicava que havia
+   la algo escondido: o tracejado e o cursor de ajuda sao a pista. */
+.hover-anchor--hinted {
+    cursor: help;
+    text-decoration: underline dotted var(--color-line);
+    text-underline-offset: 4px;
+    transition: color var(--transition-base), text-decoration-color var(--transition-base);
+}
+
+.hover-anchor--hinted:hover,
+.hover-anchor--hinted:focus-visible,
+.hover-anchor--hinted:focus-within {
+    color: var(--color-accent);
+    text-decoration-color: var(--color-accent);
+}
+
+.hover-bubble {
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 5;
+    width: max-content;
+    max-width: 320px;
+    padding: 10px 12px;
+    background: var(--color-ink2);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-md);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+    color: var(--color-text-secondary);
+    font-family: var(--font-body);
+    font-size: 0.72rem;
+    font-weight: 400;
+    line-height: 1.45;
+    text-align: left;
+    text-transform: none;
+    text-decoration: none; /* a ancora --hinted e sublinhada; a bolha nao herda isso */
+    letter-spacing: normal;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity var(--transition-base);
+}
+
+/* Encostada a esquerda, para quando a ancora e larga (uma linha de ranking). */
+.hover-bubble--left {
+    left: 0;
+    transform: none;
+}
+
+/* Encostada a direita, para ancoras perto da margem direita da pagina: o body
+   tem overflow-x hidden, portanto o que passasse dela era cortado. */
+.hover-bubble--right {
+    right: 0;
+    left: auto;
+    transform: none;
+}
+
+/* Por baixo, para ancoras coladas ao topo (os cabecalhos da tabela), onde uma
+   bolha para cima sairia do ecra ou ficava por tras do que esta acima. */
+.hover-bubble--below {
+    top: calc(100% + 8px);
+    bottom: auto;
+}
+
+.hover-anchor:hover > .hover-bubble,
+.hover-anchor:focus-within > .hover-bubble {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Uma entrada por linha dentro da bolha (ex.: a lista de livros de um ator). */
+.hover-bubble-line {
+    display: block;
+    white-space: nowrap;
+}
+
+.hover-bubble-line + .hover-bubble-line {
+    margin-top: 3px;
+}

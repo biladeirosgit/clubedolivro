@@ -1,0 +1,570 @@
+/* Banda de metricas (estilo v2): caixas com gradiente + numero 900 */
+.kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 14px;
+    width: min(1240px, 92vw);
+    margin: 0 auto var(--space-5);
+}
+
+.kpi-tile {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    background: linear-gradient(180deg, var(--color-surface), var(--color-ink2));
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-md);
+    padding: 20px 22px;
+}
+
+.kpi-value {
+    font-family: var(--font-body);
+    font-size: clamp(26px, 4vh, 38px);
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    color: #fff;
+    line-height: 1.05;
+}
+
+.kpi-label {
+    font-family: var(--font-body);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-text-secondary);
+}
+
+/* Segunda metrica do mesmo cartao: mora debaixo de uma linha, com metade do
+   peso do numero de cima para nao competir com ele. */
+.kpi-sub {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--color-line);
+}
+
+.kpi-sub-value {
+    font-family: var(--font-body);
+    font-size: 19px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    color: #fff;
+    line-height: 1;
+}
+
+.kpi-sub-label {
+    font-family: var(--font-body);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-text-secondary);
+}
+
+/* Grelha de cartoes de insight (rankings, barras, afinidade).
+   12 colunas para os cards poderem ocupar 3, 4 ou 6 delas -- ou seja 4, 3 ou 2
+   por linha. Com auto-fit nao dava: 3 por linha nao e divisor de 4. */
+.insight-grid {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 18px;
+    width: min(1240px, 92vw);
+    margin: 0 auto;
+}
+
+.insight-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-md);
+    padding: 20px 22px;
+    font-family: var(--font-body);
+}
+
+.insight-card h2 {
+    margin: 0 0 12px;
+    font-family: var(--font-body);
+    /* 0.95rem e nao 1.1: nas colunas estreitas os titulos longos passavam a
+       duas linhas e deixavam o i sozinho na segunda. */
+    font-size: 0.95rem;
+    letter-spacing: -0.01em;
+    font-weight: 700;
+    color: var(--color-text-primary);
+}
+
+.insight-highlight {
+    background: linear-gradient(180deg, rgba(59, 130, 246, 0.14), var(--color-surface));
+    border-color: rgba(59, 130, 246, 0.4);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.highlight-title {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    margin: 0 0 6px;
+    color: var(--color-text-primary);
+}
+
+.highlight-sub {
+    margin: 0;
+    color: var(--color-text-secondary);
+    font-size: 0.9rem;
+}
+
+/* Listas ranqueadas numeradas (estilo v2) */
+.ranking {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    counter-reset: rank;
+}
+
+.ranking li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 8px 0;
+    /* Alinhado com as barras (.rating-bar-row): a 1rem os titulos de livro
+       passavam a duas linhas na coluna estreita. */
+    font-size: 0.82rem;
+    line-height: 1.35;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.ranking li:last-child {
+    border-bottom: 0;
+}
+
+.ranking li::before {
+    counter-increment: rank;
+    content: counter(rank);
+    color: var(--color-text-secondary);
+    font-weight: 800;
+    width: 18px;
+    flex-shrink: 0;
+}
+
+.ranking li > span {
+    flex: 1;
+    color: var(--color-text-primary);
+}
+
+.ranking li strong {
+    white-space: nowrap;
+    color: var(--color-gold);
+    font-weight: 800;
+}
+
+.ranking a {
+    color: var(--color-text-primary);
+}
+
+.ranking a:hover {
+    color: var(--color-accent);
+}
+
+/* Distribuicao de ratings como barras finas (nao um grafico).
+   A grelha e do card inteiro e as linhas sao display:contents, para as tres
+   colunas se alinharem entre linhas. Com display:grid em cada linha, cada uma
+   media o seu proprio rotulo e as barras ficavam a comecar em sitios
+   diferentes.
+   fit-content(168px) da a coluna do rotulo o tamanho do maior texto do card,
+   ate um tecto -- serve o "0.5★", o "150+ min" e o "Christopher Nolan" sem
+   folga nenhuma, e faz quebrar os nomes de tema, que chegam aos 41 caracteres. */
+.rating-bars {
+    display: grid;
+    grid-template-columns: fit-content(168px) 1fr max-content;
+    align-items: center;
+    column-gap: 10px;
+    row-gap: 8px;
+    font-size: 0.82rem;
+    color: var(--color-text-secondary);
+}
+
+.rating-bar-row {
+    display: contents;
+}
+
+.rating-bar-label {
+    line-height: 1.3;
+}
+
+.rating-bar-track {
+    height: 10px;
+    background: var(--color-ink2);
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.rating-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--color-accent), var(--color-gold));
+    border-radius: 999px;
+    transition: width var(--transition-base);
+}
+
+.rating-bar-count {
+    text-align: right;
+    color: var(--color-text-primary);
+}
+
+/* Largura de cada card em colunas da grelha de 12.
+   normal = 4 por linha; --third = 3 (distribuicoes curtas: notas, decadas,
+   duracao); --half = 2 (as listas de barras, que tem nomes compridos).
+   Vao encolhendo em numero por linha conforme o ecra aperta. */
+.insight-card {
+    grid-column: span 3;
+}
+
+.insight-card--third {
+    grid-column: span 4;
+}
+
+.insight-card--half {
+    grid-column: span 6;
+}
+
+@media (max-width: 1299px) {
+    .insight-card {
+        grid-column: span 4;
+    }
+
+    .insight-card--third,
+    .insight-card--half {
+        grid-column: span 6;
+    }
+}
+
+@media (max-width: 980px) {
+    .insight-card {
+        grid-column: span 6;
+    }
+
+    .insight-card--third,
+    .insight-card--half {
+        grid-column: span 12;
+    }
+}
+
+@media (max-width: 700px) {
+    .insight-card,
+    .insight-card--third,
+    .insight-card--half {
+        grid-column: span 12;
+    }
+}
+
+/* Titulos de seccao: discretos, nao competem com os KPIs */
+.section-title {
+    text-align: center;
+    font-size: clamp(18px, 2.6vh, 24px);
+    font-weight: normal;
+    letter-spacing: 0.03em;
+    color: var(--color-text-primary);
+    margin: var(--space-5) 0 var(--space-2);
+}
+
+.rating-badge {
+    display: inline-block;
+    margin: 6px auto 0;
+    padding: 2px 10px;
+    background-color: var(--color-accent);
+    color: var(--color-on-accent);
+    font-weight: 600;
+    border-radius: var(--radius-lg);
+    font-size: 13px;
+    font-family: var(--font-body);
+}
+
+.stats-page {
+    padding: 28px 0 64px;
+}
+
+.top-bottom-books {
+    width: min(1240px, 92vw);
+    margin: 0 auto;
+}
+
+/* Grelhas de BookRow (best/worst e todos os livros) */
+.book-row-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 12px;
+    margin-bottom: var(--space-4);
+}
+
+.book-row-grid--list {
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+}
+
+/* Best/worst: Melhores (esq) + Piores (dir), cada um 2 colunas x 5 linhas */
+.best-worst {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: var(--space-4);
+}
+
+.best-worst-col .section-title {
+    margin-top: var(--space-4);
+}
+
+.book-row-grid--pair {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin-bottom: 0;
+}
+
+@media (max-width: 1024px) {
+    .best-worst {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+}
+
+@media (max-width: 560px) {
+    .book-row-grid--pair {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Tabela compacta */
+.compact-table {
+    font-size: 0.78rem;
+}
+
+/* As duas classes juntas para ganhar ao width:100% do .pretty-table, que vem
+   depois neste ficheiro. Com ele, a folga da linha ia toda para a coluna de
+   conteudo mais largo e a do Membro ficava enorme; assim cada coluna fica do
+   tamanho do que tem e a tabela centra-se. */
+.pretty-table.compact-table {
+    width: auto;
+    margin: 0 auto;
+}
+
+.compact-table th,
+.compact-table td {
+    padding: 5px 7px;
+}
+
+.pretty-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0;
+    font-size: 16px;
+    font-family: var(--font-body);
+    text-align: center;
+    color: var(--color-text-primary);
+    background-color: var(--color-surface);
+}
+
+.pretty-table thead tr {
+    background-color: var(--color-surface-alt);
+    color: var(--color-text-primary);
+    text-align: center;
+    font-weight: 600;
+}
+
+.pretty-table th,
+.pretty-table td {
+    padding: 12px 15px;
+    align-items: center;
+}
+
+.pretty-table tbody tr {
+    border-bottom: 1px solid rgba(245, 239, 233, 0.08);
+    transition: background-color var(--transition-fast);
+}
+
+.pretty-table tbody tr:hover {
+    background-color: var(--color-surface-alt);
+}
+
+.table-scroll {
+    border-radius: var(--radius-md);
+    background-color: var(--color-surface);
+    box-shadow: var(--shadow-sm);
+}
+
+.user {
+    display: flex;
+    align-items: center;
+    margin: auto;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.td-book img{
+    width: 100px!important;
+    height: 147.5px!important;
+    max-width:unset!important;
+    margin-right: 10px!important;
+}
+
+.user .top {
+    margin-right: 8px;
+    display: flex;
+}
+
+.bottom {
+    font-weight: bold;
+    color: var(--color-text-primary);
+}
+
+.bottom2 {
+    font-weight: bold;
+    color: var(--color-text-primary);
+}
+
+.table-scroll {
+    width: fit-content;
+    max-width: 100%;
+    margin: 0 auto;
+    /* Visivel de proposito: um overflow aqui cria um contexto de corte e as
+       bolhas dos i dos cabecalhos ficavam escondidas. A tabela encolhe em vez
+       de deslizar. */
+    overflow: visible;
+}
+
+@media (max-width: 720px) {
+    .compact-table th,
+    .compact-table td {
+        padding: 5px 6px;
+    }
+}
+
+/* Perfil de membro: cartoes horizontais (estilo v2) */
+.user-books {
+    width: min(1000px, 92vw);
+    margin: 0 auto var(--space-4);
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 14px;
+}
+
+.user-books article {
+    display: flex;
+    gap: 14px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-md);
+    padding: 14px;
+    align-items: flex-start;
+}
+
+.user-books img {
+    width: 64px;
+    height: 96px;
+    object-fit: cover;
+    border-radius: var(--radius-sm);
+    flex-shrink: 0;
+}
+
+.user-books h3 {
+    margin: 0 0 4px;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--color-text-primary);
+}
+
+.user-books .um-year {
+    color: var(--color-text-secondary);
+    font-weight: 400;
+}
+
+.user-books .um-rating {
+    display: block;
+    color: var(--color-gold);
+    font-family: var(--font-body);
+    font-weight: 800;
+    margin-bottom: 6px;
+}
+
+.user-books .um-note {
+    color: var(--color-text-secondary);
+    font-weight: 400;
+    font-size: 0.8rem;
+}
+
+.user-books p {
+    margin: 0;
+    font-family: var(--font-body);
+    color: #c4c6cd;
+    font-size: 0.88rem;
+    line-height: 1.45;
+}
+
+.user-books .um-nocomment {
+    color: var(--color-text-secondary);
+    font-style: italic;
+}
+
+/* Toggle do Goodreads no perfil. */
+.gr-toggle-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--space-2);
+    margin: calc(-1 * var(--space-3)) auto var(--space-4);
+    padding: 0 16px;
+}
+
+.gr-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: var(--color-text-primary);
+    user-select: none;
+}
+
+.gr-toggle input {
+    position: absolute;
+    opacity: 0;
+    width: 1px;
+    height: 1px;
+}
+
+.gr-toggle-track {
+    position: relative;
+    width: 40px;
+    height: 22px;
+    border-radius: var(--radius-lg);
+    background: var(--color-line);
+    transition: background var(--transition-fast);
+    flex-shrink: 0;
+}
+
+.gr-toggle-thumb {
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--color-text-primary);
+    transition: transform var(--transition-fast);
+}
+
+.gr-toggle input:checked + .gr-toggle-track {
+    background: var(--color-accent);
+}
+
+.gr-toggle input:checked + .gr-toggle-track .gr-toggle-thumb {
+    transform: translateX(18px);
+}
+
+.gr-toggle input:focus-visible + .gr-toggle-track {
+    outline: 2px solid var(--color-accent-soft);
+    outline-offset: 2px;
+}
+
+.gr-toggle-count {
+    color: var(--color-text-secondary);
+    font-size: 0.85em;
+    margin-left: 4px;
+}

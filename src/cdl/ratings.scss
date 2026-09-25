@@ -1,0 +1,75 @@
+// 5 Star Rating Score — usa o caracter Unicode ★ diretamente, sem depender
+// de nenhuma icon font externa (a versão anterior dependia do FontAwesome
+// carregado via CDN, uma dependência frágil que já não existe no projeto).
+
+$star-empty-color: #3a3f4d;
+$star-fill-color: #ffce54;
+
+%base-star {
+    position: relative;
+    display: inline-block;
+    font-size: 1.1em;
+    line-height: 1;
+    color: $star-empty-color;
+
+    &:before {
+        content: "\2605"; // ★
+        display: block;
+    }
+}
+
+%full-star {
+    color: $star-fill-color;
+}
+
+%empty-star {
+    color: $star-empty-color;
+}
+
+%half-star {
+    color: $star-empty-color;
+
+    &:after {
+        content: "\2605"; // ★ sobreposta, cortada a 50% de largura
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 50%;
+        overflow: hidden;
+        display: block;
+        color: $star-fill-color;
+    }
+}
+
+.rating-score {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: flex-start;
+    margin: 0;
+    padding: 0;
+
+    > .rating-score-item {
+        @extend %base-star;
+        @extend %empty-star;
+    }
+
+    @for $i from 1 through 5 {
+        &[data-rating='#{$i}'] {
+            > .rating-score-item:nth-child(-n + #{$i}) {
+                @extend %full-star;
+            }
+        }
+    }
+
+    @for $i from 0 through 4 {
+        &[data-rating='#{$i + 0.5}'] {
+            > .rating-score-item:nth-child(-n + #{$i}) {
+                @extend %full-star;
+            }
+
+            > .rating-score-item:nth-child(#{$i + 1}) {
+                @extend %half-star;
+            }
+        }
+    }
+}
