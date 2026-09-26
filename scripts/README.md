@@ -1,6 +1,6 @@
 # Pipeline de dados do Clube do Livro
 
-O guia completo está no [README da raiz](../README.md). Aqui fica só o mapa dos ficheiros.
+O guia completo, com todos os comandos, está no [README da raiz](../README.md#guia-de-comandos). Aqui fica só o mapa dos ficheiros.
 
 | Ficheiro | O que faz |
 | --- | --- |
