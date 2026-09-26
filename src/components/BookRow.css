@@ -63,6 +63,7 @@
 .book-row-ratings {
     display: flex;
     flex-wrap: wrap;
+    align-items: baseline;
     gap: 6px 16px;
 }
 
@@ -80,12 +81,8 @@
     font-size: 0.72rem;
 }
 
-/* Livro de fora do clube (perfil com o Goodreads ligado): link e nao botao. */
-a.book-row {
-    text-decoration: none;
-    box-sizing: border-box;
-}
-
+/* Livro de fora do clube (perfil com o Goodreads ligado): borda tracejada
+   para se distinguir dos do clube. */
 .book-row--external {
     border-style: dashed;
 }

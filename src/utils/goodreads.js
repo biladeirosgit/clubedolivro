@@ -17,7 +17,8 @@ export const shelfCount = (shelves, name) => (Array.isArray(shelves[name]) ? she
 // dois membros leram em edicoes diferentes junta-se pelo titulo + autor, e fica
 // com as notas dos dois (e o que alimenta os "gostos mais parecidos").
 // Os livros de fora ficam marcados com `external: true` e trazem `cover` (URL
-// do Goodreads) em vez de capa local.
+// do Goodreads) em vez de capa local. Nao tem data do clube: `readAt` guarda o
+// dia em que cada membro o marcou como lido.
 export const mergeShelves = (bookData, shelves) => {
     const merged = { ...bookData };
     const idByKey = {};
@@ -36,14 +37,18 @@ export const mergeShelves = (bookData, shelves) => {
                     chosenBy: [],
                     reviews: {},
                     comments: {},
-                    date: b.readAt,
+                    date: null,
+                    readAt: {},
                     link: `https://www.goodreads.com/book/show/${b.bookId}`,
                     cover: b.cover,
                     external: true,
                 };
             }
             const book = merged[idByKey[key]];
-            if (book.reviews[member] == null) book.reviews[member] = b.rating;
+            if (book.reviews[member] == null) {
+                book.reviews[member] = b.rating;
+                book.readAt[member] = b.readAt || null;
+            }
         });
     });
     return merged;

@@ -6,6 +6,7 @@ import { MemoryRouter, Routes, Route } from 'react-router-dom';
 import { mergeShelves, shelfCount } from './utils/goodreads';
 import { mostSimilarTo } from './utils/stats';
 import UserStats from './cdl/UserStats';
+import BookRow from './components/BookRow';
 import shelves from './cdl/goodreadsShelves.json';
 
 const clube = {
@@ -35,8 +36,27 @@ describe('mergeShelves', () => {
         expect(merged['gr-10'].reviews).toEqual({ Eu: 5, Tu: 3 });
     });
 
+    test('cada membro fica com o seu dia de leitura', () => {
+        const lidos = { Eu: [{ ...estantes.Eu[0], readAt: '02/03/2024' }], Tu: estantes.Tu };
+        expect(mergeShelves(clube, lidos)['gr-10'].readAt).toEqual({ Eu: '02/03/2024', Tu: null });
+    });
+
     test('nao mexe no bookData original', () => {
         expect(Object.keys(clube)).toEqual(['1']);
+    });
+
+    test('abrir um livro de fora mostra o card com as notas de todos os membros', () => {
+        render(
+            <MemoryRouter>
+                <BookRow slug="gr-10" book={merged['gr-10']} userRating={5} userLabel="Eu" />
+            </MemoryRouter>
+        );
+        expect(screen.queryByText(/club avg|Goodreads/)).toBeNull(); // antes de abrir, so a nota dele
+        fireEvent.click(screen.getByRole('button'));
+        expect(screen.getByText('Fora do clube · Goodreads')).toBeInTheDocument();
+        expect(screen.getByText('Ratings dos membros no Goodreads')).toBeInTheDocument();
+        expect(screen.getByText('Tu')).toBeInTheDocument();
+        expect(screen.queryByText('Escolhido por')).toBeNull();
     });
 
     test('shelfCount ignora quem nao tem Goodreads e a chave de comentario', () => {

@@ -5,6 +5,7 @@ O guia completo está no [README da raiz](../README.md). Aqui fica só o mapa do
 | Ficheiro | O que faz |
 | --- | --- |
 | `build_book_data.py` | Pipeline principal. Lê `bookMeta.json` + Goodreads e escreve `src/cdl/bookData.json` e `public/covers/` |
+| `build_goodreads_shelves.py` | Livros de fora do clube, só para o perfil. Escreve `src/cdl/goodreadsShelves.json` |
 | `build_manual_template.py` | (Re)gera `manualRatings.json` com os livros por avaliar de cada membro sem Goodreads |
 | `discord_import.py` | Lê um export do canal do Discord e acrescenta os livros ao `bookMeta.json` |
 | `config.py` | Caminhos e constantes (delays, número de géneros) |

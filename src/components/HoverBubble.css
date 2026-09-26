@@ -28,7 +28,7 @@
     transform: translateX(-50%);
     z-index: 5;
     width: max-content;
-    max-width: 320px;
+    max-width: min(320px, calc(100vw - 32px));
     padding: 10px 12px;
     background: var(--color-ink2);
     border: 1px solid var(--color-line);
@@ -76,9 +76,12 @@
 }
 
 /* Uma entrada por linha dentro da bolha (ex.: a lista de livros de um ator). */
+/* Um titulo comprido parte-se dentro da bolha em vez de sair dela; o recuo
+   das linhas seguintes mostra onde comeca cada entrada. */
 .hover-bubble-line {
     display: block;
-    white-space: nowrap;
+    padding-left: 1em;
+    text-indent: -1em;
 }
 
 .hover-bubble-line + .hover-bubble-line {

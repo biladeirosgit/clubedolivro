@@ -507,7 +507,7 @@
     justify-content: center;
     align-items: center;
     gap: var(--space-2);
-    margin: calc(-1 * var(--space-3)) auto var(--space-4);
+    margin: var(--space-3) auto var(--space-5);
     padding: 0 16px;
 }
 
@@ -561,6 +561,31 @@
 .gr-toggle input:focus-visible + .gr-toggle-track {
     outline: 2px solid var(--color-accent-soft);
     outline-offset: 2px;
+}
+
+/* Filtros das listas de lidos no perfil: a barra do catalogo, a largura toda
+   da coluna e colada ao titulo da primeira lista. */
+.profile-filters {
+    margin-top: var(--space-5);
+}
+
+.profile-filters .filters {
+    width: 100%;
+    margin-bottom: 0;
+}
+
+.profile-filters + .section-title {
+    margin-top: var(--space-4);
+}
+
+/* O nome do Goodreads nas cores da marca, para se ver logo de onde vem. */
+.gr-toggle-brand {
+    padding: 1px 7px;
+    border-radius: 4px;
+    background: #f4f1ea;
+    color: #382110;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-weight: 700;
 }
 
 .gr-toggle-count {

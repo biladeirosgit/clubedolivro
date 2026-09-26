@@ -40,9 +40,9 @@ describe('navbar', () => {
         expect(tabs).toEqual(['Catalog', 'Stats', 'Guess']);
     });
 
-    test('a marca fica: Bilalivros e um nome proprio', () => {
+    test('a marca fica: Bilalivro e um nome proprio', () => {
         const { container } = renderNav();
-        expect(container.querySelector('.navbar-brand').textContent).toBe('Bilalivros');
+        expect(container.querySelector('.navbar-brand').textContent).toBe('Bilalivro');
     });
 });
 

@@ -10,9 +10,12 @@ import Avatar from '../components/Avatar';
 
 // Recebe so o slug e vai buscar o resto ao bookData — assim os sitios que
 // abrem o card nao precisam de saber que campos e que ele mostra.
-const BookCard = ({ slug }) => {
+// Um livro de fora do clube (so no perfil, com o Goodreads ligado) nao esta no
+// bookData: vem inteiro em `book`, ja com as notas de todos os membros que o
+// avaliaram no Goodreads.
+const BookCard = ({ slug, book: outside }) => {
     const root = useRef(null);
-    const book = bookData[slug];
+    const book = outside || bookData[slug];
 
     // Se o modal trocar de livro sem fechar, o scroll ficava a meio do card anterior.
     useEffect(() => {
@@ -22,21 +25,22 @@ const BookCard = ({ slug }) => {
 
     if (!book) return null;
 
-    const { title, year, link, chosenBy, genres, pages, reviews, comments, authors } = book;
+    const { title, year, link, chosenBy, genres, pages, reviews, comments, authors, external } = book;
     const average = averageFixed(reviews, 2);
     const reviewers = Object.keys(reviews || {});
-    const period = readingPeriods[slug];
+    const period = external ? null : readingPeriods[slug];
+    const cover = external ? book.cover : coverSrc(slug);
     const meta = [year, pages ? `${pages} páginas` : null].filter(Boolean).join(' · ');
 
     return (
         <div className="mc" ref={root}>
             <div className="mc-hero">
-                <div className="cover-blur-bg" style={{ backgroundImage: `url("${coverSrc(slug)}")` }} />
+                {cover && <div className="cover-blur-bg" style={{ backgroundImage: `url("${cover}")` }} />}
                 <div className="mc-poster">
-                    <img src={coverSrc(slug)} alt={`${title} capa`} />
+                    {cover && <img src={cover} alt={`${title} capa`} />}
                 </div>
                 <div className="mc-hero-info">
-                    <p className="mc-kicker">Livro do clube</p>
+                    <p className="mc-kicker">{external ? 'Fora do clube · Goodreads' : 'Livro do clube'}</p>
                     <h2 className="mc-title">{title}</h2>
                     {authors && authors.length > 0 && <p className="mc-authors">{joinWithAmpersand(authors)}</p>}
                     <p className="mc-meta">
@@ -53,10 +57,12 @@ const BookCard = ({ slug }) => {
             </div>
 
             <div className="mc-body">
-                <section>
-                    <h3>Escolhido por</h3>
-                    <p className="mc-chosen">{joinWithAmpersand(chosenBy) || 'Roda do clube'}</p>
-                </section>
+                {!external && (
+                    <section>
+                        <h3>Escolhido por</h3>
+                        <p className="mc-chosen">{joinWithAmpersand(chosenBy) || 'Roda do clube'}</p>
+                    </section>
+                )}
 
                 {genres && genres.length > 0 && (
                     <section>
@@ -68,7 +74,7 @@ const BookCard = ({ slug }) => {
                 )}
 
                 <section>
-                    <h3>Ratings do clube</h3>
+                    <h3>{external ? 'Ratings dos membros no Goodreads' : 'Ratings do clube'}</h3>
                     {reviewers.length ? (
                         <div className="mc-reviews">
                             {reviewers.map((user) => {

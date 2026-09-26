@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { bookData } from './books';
 // Livros que cada membro avaliou no Goodreads fora do clube. Esta pagina e o
@@ -7,10 +7,13 @@ import shelves from './goodreadsShelves.json';
 import { mergeShelves, shelfCount } from '../utils/goodreads';
 import './BookClubStats.css';
 import BookRow from '../components/BookRow';
+import RankedBars, { CountAverageBars } from '../components/RankedBars';
+import ProfileListFilters from '../components/ProfileListFilters';
 import InfoTip from '../components/InfoTip';
 import { HoverAnchor, BookLines } from '../components/HoverBubble';
-import { mostSimilarTo, unratedByUser, ratersOfSuggester, suggestersRatedBy, suggesterAverages, genreRanking, genreCounts, creditCounts, creditRanking, ratingDistribution, RATING_BUCKETS, MIN_SHARED, AFFINITY_SHRINK, MIN_GENRE_BOOKS, MIN_AUTHOR_BOOKS, MIN_CROSS_RATED } from '../utils/stats';
+import { mostSimilarTo, unratedByUser, ratersOfSuggester, suggestersRatedBy, suggesterAverages, genreRanking, genreCounts, creditCounts, creditRanking, ratingDistribution, decadeStats, pageStats, RATING_BUCKETS, MIN_SHARED, AFFINITY_SHRINK, MIN_GENRE_BOOKS, MIN_AUTHOR_BOOKS, MIN_CROSS_RATED } from '../utils/stats';
 import { compareDatesDesc } from '../utils/dates';
+import { DEFAULT_FILTERS, filterProfileList, yearBounds } from '../utils/profileList';
 
 // Preferencia de quem ve o site (nao do perfil): fica ligada ou desligada para
 // todos os perfis. O localStorage pode nao existir (modo privado), dai o try.
@@ -25,6 +28,9 @@ const writePref = (on) => {
 const UserStats = () => {
     const { username } = useParams();
     const [includeGoodreads, setIncludeGoodreads] = useState(readPref);
+    const [filters, setFilters] = useState(DEFAULT_FILTERS);
+    // Os filtros sao da lista de cada pessoa: saltar para outro perfil limpa-os.
+    useEffect(() => setFilters(DEFAULT_FILTERS), [username]);
     const extraCount = shelfCount(shelves, username);
     const withGoodreads = includeGoodreads && extraCount > 0;
 
@@ -66,14 +72,22 @@ const UserStats = () => {
     // membros na pagina do clube.
     const choiceAverage = suggesterAverages(bookData)[username];
 
-    // Livros lidos por este membro, ordenados pela nota que deu (desc). Os de
-    // fora do clube (so com o toggle) vao para uma lista a parte.
+    // Livros lidos por este membro. Os de fora do clube (so com o toggle) vao
+    // para uma lista a parte; os filtros e a ordem sao os mesmos nas duas.
     const read = Object.entries(data)
         .filter(([, book]) => username in (book.reviews || {}))
-        .map(([slug, book]) => ({ slug, book, rating: book.reviews[username] }))
-        .sort((a, b) => b.rating - a.rating);
+        .map(([slug, book]) => ({
+            slug,
+            book,
+            rating: book.reviews[username],
+            date: book.external ? book.readAt?.[username] : book.date,
+        }));
     const watched = read.filter((m) => !m.book.external);
     const readOutside = read.filter((m) => m.book.external);
+    const listBounds = yearBounds(read);
+    const shownWatched = filterProfileList(watched, filters, listBounds);
+    const shownOutside = filterProfileList(readOutside, filters, listBounds);
+    const countLabel = (shown, all) => (shown.length === all.length ? `${all.length}` : `${shown.length} de ${all.length}`);
 
     // Livros que ele escolheu, da escolha mais recente para a mais antiga.
     const recommendations = Object.entries(bookData)
@@ -85,12 +99,14 @@ const UserStats = () => {
     const unrated = unratedByUser(bookData, username);
     const fansOfChoices = ratersOfSuggester(bookData, username);
     const favouriteSuggesters = suggestersRatedBy(bookData, username);
-    const topGenres = genreRanking(data, username).slice(0, 10);
+    const topGenres = genreRanking(data, username);
     const suggestedGenres = genreCounts(bookData, username).slice(0, 10);
     const suggestedAuthors = creditCounts(bookData, 'authors', username).slice(0, 10);
-    const favouriteAuthors = creditRanking(data, 'authors', username, MIN_AUTHOR_BOOKS).slice(0, 10);
+    const favouriteAuthors = creditRanking(data, 'authors', username, MIN_AUTHOR_BOOKS);
     const ratingStats = ratingDistribution(data, username);
     const maxRatingCount = Math.max(1, ...Object.values(ratingStats));
+    const decades = decadeStats(data, username);
+    const pageBuckets = pageStats(data, username);
 
     return (
         <div className="stats-page">
@@ -102,9 +118,9 @@ const UserStats = () => {
                     <label className="gr-toggle">
                         <input type="checkbox" checked={includeGoodreads} onChange={toggleGoodreads} />
                         <span className="gr-toggle-track" aria-hidden="true"><span className="gr-toggle-thumb" /></span>
-                        <span>Incluir o Goodreads <span className="gr-toggle-count">+{extraCount} livros fora do clube</span></span>
+                        <span>Incluir o <strong className="gr-toggle-brand">Goodreads</strong> <span className="gr-toggle-count">+{extraCount} livros fora do clube</span></span>
                     </label>
-                    <InfoTip>Junta às estatísticas deste perfil os livros que {username} avaliou no Goodreads e que não são do clube. Mexe nos números, na distribuição de ratings, nos gostos parecidos (também com os livros de fora dos outros membros) e nos autores preferidos. As escolhas, os fãs e o "ainda por ler" continuam só com o clube. Estes livros não aparecem em mais lado nenhum do site.</InfoTip>
+                    <InfoTip placement="below-right">Junta às estatísticas deste perfil os livros que {username} avaliou no Goodreads e que não são do clube. Mexe nos números, nas distribuições, nos gostos parecidos (também com os livros de fora dos outros membros) e nos autores preferidos. As escolhas, os fãs e o "ainda por ler" continuam só com o clube. Estes livros não aparecem em mais lado nenhum do site.</InfoTip>
                 </div>
             )}
             <div className="kpi-grid">
@@ -135,6 +151,60 @@ const UserStats = () => {
             </div>
 
             <div className="insight-grid">
+                <div className="insight-card insight-card--third">
+                    <h2>Distribuição de ratings<InfoTip>Quantas vezes {username} deu cada nota, de meia a cinco estrelas. Uma pessoa concentrada em duas ou três barras usa pouco a escala, o que faz as médias dela dizerem menos.</InfoTip></h2>
+                    <div className="rating-bars">
+                        {RATING_BUCKETS.map((key) => {
+                            const count = ratingStats[key] || 0;
+                            return (
+                                <div className="rating-bar-row" key={key}>
+                                    <span className="rating-bar-label">{(key / 2).toFixed(1)}★</span>
+                                    <div className="rating-bar-track">
+                                        <div className="rating-bar-fill" style={{ width: `${(count / maxRatingCount) * 100}%` }} />
+                                    </div>
+                                    <span className="rating-bar-count">{count}</span>
+                                </div>
+                            );
+                        })}
+                    </div>
+                </div>
+
+                <div className="insight-card insight-card--third">
+                    <h2>Por década<InfoTip>A barra é quantos livros {username} leu de cada década de <i>publicação</i>; à direita vai <b>livros · média</b>, e a média é a das notas de {username}. Ordem cronológica, não ranking.</InfoTip></h2>
+                    {decades.length ? (
+                        <CountAverageBars rows={decades.map((d) => ({ key: d.decade, label: `${d.decade}s`, count: d.count, average: d.average }))} />
+                    ) : <p className="highlight-sub">Ainda não leu nenhum livro.</p>}
+                </div>
+
+                <div className="insight-card insight-card--third">
+                    <h2>Por tamanho<InfoTip>A barra é quantos livros {username} leu em cada escalão de páginas; à direita vai <b>livros · média</b>, e a média é a das notas de {username}. Por ordem de tamanho, não ranking.</InfoTip></h2>
+                    <CountAverageBars rows={pageBuckets.map((r) => ({ key: r.label, label: r.label, count: r.count, average: r.average }))} />
+                </div>
+
+                <div className="insight-card insight-card--half">
+                    <h2>Géneros mais bem avaliados<InfoTip>A barra é quantos livros de cada género {username} leu; à direita vai <b>livros · média</b>, e dá para ordenar pela média das notas de {username} ou por quantos são. Um livro conta para todos os géneros que tem. Mínimo de {MIN_GENRE_BOOKS} livros por género — um género com um livro só não diz nada sobre gosto.</InfoTip></h2>
+                    {topGenres.length ? (
+                        <RankedBars rows={topGenres.map((g) => ({
+                            key: g.name,
+                            label: <HoverAnchor detail={<BookLines books={g.books} />}>{g.name}</HoverAnchor>,
+                            count: g.count,
+                            average: g.average,
+                        }))} />
+                    ) : <p className="highlight-sub">Ainda leu poucos livros para comparar géneros.</p>}
+                </div>
+
+                <div className="insight-card insight-card--half">
+                    <h2>Autores preferidos<InfoTip>A barra é quantos livros de cada autor {username} leu; à direita vai <b>livros · média</b>, e dá para ordenar pela média das notas de {username} ou por quantos são. É sobre o que leu, não sobre o que escolheu. Mínimo de {MIN_AUTHOR_BOOKS} livros.</InfoTip></h2>
+                    {favouriteAuthors.length ? (
+                        <RankedBars rows={favouriteAuthors.map((p) => ({
+                            key: p.name,
+                            label: <HoverAnchor detail={<BookLines books={p.books} />}>{p.name}</HoverAnchor>,
+                            count: p.count,
+                            average: p.average,
+                        }))} />
+                    ) : <p className="highlight-sub">Ainda não leu {MIN_AUTHOR_BOOKS} livros do mesmo autor.</p>}
+                </div>
+
                 <div className="insight-card">
                     <h2>Gostos mais parecidos<InfoTip>
                         Negativo: quando um sobe, o outro desce.
@@ -193,23 +263,6 @@ const UserStats = () => {
                     ) : <p className="highlight-sub">{username} ainda não avaliou escolhas suficientes de ninguém.</p>}
                 </div>
                 <div className="insight-card">
-                    <h2>Distribuição de ratings<InfoTip>Quantas vezes {username} deu cada nota, de meia a cinco estrelas. Uma pessoa concentrada em duas ou três barras usa pouco a escala, o que faz as médias dela dizerem menos.</InfoTip></h2>
-                    <div className="rating-bars">
-                        {RATING_BUCKETS.map((key) => {
-                            const count = ratingStats[key] || 0;
-                            return (
-                                <div className="rating-bar-row" key={key}>
-                                    <span className="rating-bar-label">{(key / 2).toFixed(1)}★</span>
-                                    <div className="rating-bar-track">
-                                        <div className="rating-bar-fill" style={{ width: `${(count / maxRatingCount) * 100}%` }} />
-                                    </div>
-                                    <span className="rating-bar-count">{count}</span>
-                                </div>
-                            );
-                        })}
-                    </div>
-                </div>
-                <div className="insight-card">
                     <h2>Géneros que traz<InfoTip>Géneros dos livros que {username} <b>trouxe</b> ao clube, não dos que leu. Um livro conta para todos os géneros que tem.</InfoTip></h2>
                     {suggestedGenres.length ? (
                         <ol className="ranking">
@@ -223,21 +276,6 @@ const UserStats = () => {
                     ) : <p className="highlight-sub">Ainda não escolheu nenhum livro.</p>}
                 </div>
                 <div className="insight-card">
-                    <h2>Géneros mais bem avaliados<InfoTip>Média que {username} deu aos livros de cada género, entre os que leu. Mínimo de {MIN_GENRE_BOOKS} livros por género — um género com um livro só não diz nada sobre gosto.</InfoTip></h2>
-                    {topGenres.length ? (
-                        <ol className="ranking">
-                            {topGenres.map((g) => (
-                                <li key={g.name}>
-                                    <span>
-                                        <HoverAnchor detail={<BookLines books={g.books} />}>{g.name}</HoverAnchor>
-                                    </span>
-                                    <strong>{g.average.toFixed(2)}</strong>
-                                </li>
-                            ))}
-                        </ol>
-                    ) : <p className="highlight-sub">Ainda leu poucos livros para comparar géneros.</p>}
-                </div>
-                <div className="insight-card">
                     <h2>Autores que traz<InfoTip>Autores dos livros que {username} <b>trouxe</b> ao clube, não dos que leu.</InfoTip></h2>
                     {suggestedAuthors.length ? (
                         <ol className="ranking">
@@ -249,21 +287,6 @@ const UserStats = () => {
                             ))}
                         </ol>
                     ) : <p className="highlight-sub">Ainda não escolheu nenhum livro.</p>}
-                </div>
-                <div className="insight-card">
-                    <h2>Autores preferidos<InfoTip>Média que {username} deu aos livros de cada autor, entre os que leu — aqui é sobre o que leu, não sobre o que escolheu. Mínimo de {MIN_AUTHOR_BOOKS} livros.</InfoTip></h2>
-                    {favouriteAuthors.length ? (
-                        <ol className="ranking">
-                            {favouriteAuthors.map((p) => (
-                                <li key={p.name}>
-                                    <span>
-                                        <HoverAnchor detail={<BookLines books={p.books} />}>{p.name}</HoverAnchor>
-                                    </span>
-                                    <strong>{p.average.toFixed(2)}</strong>
-                                </li>
-                            ))}
-                        </ol>
-                    ) : <p className="highlight-sub">Ainda não leu {MIN_AUTHOR_BOOKS} livros do mesmo autor.</p>}
                 </div>
                 <div className="insight-card">
                     <h2>Ainda por ler ({unrated.length})</h2>
@@ -289,18 +312,29 @@ const UserStats = () => {
                     </>
                 )}
 
-                <h2 className='section-title'>{withGoodreads ? 'Livros lidos no clube' : 'Livros lidos'}</h2>
+                {read.length > 0 && (
+                    <div className="profile-filters">
+                        <ProfileListFilters items={read} bounds={listBounds} filters={filters} onChange={setFilters} username={username} />
+                    </div>
+                )}
+                <h2 className='section-title'>{withGoodreads ? 'Livros lidos no clube' : 'Livros lidos'} ({countLabel(shownWatched, watched)})</h2>
+                {watched.length > 0 && shownWatched.length === 0 && (
+                    <p className="no-results">Nenhum livro com estes filtros.</p>
+                )}
                 <div className="book-row-grid">
-                    {watched.map((m) => (
+                    {shownWatched.map((m) => (
                         <BookRow key={m.slug} slug={m.slug} book={m.book} userRating={m.rating} userLabel={username} />
                     ))}
                 </div>
 
                 {withGoodreads && (
                     <>
-                        <h2 className='section-title'>Fora do clube · Goodreads ({readOutside.length})</h2>
+                        <h2 className='section-title'>Fora do clube · Goodreads ({countLabel(shownOutside, readOutside)})</h2>
+                        {shownOutside.length === 0 && (
+                            <p className="no-results">Nenhum livro com estes filtros.</p>
+                        )}
                         <div className="book-row-grid">
-                            {readOutside.map((m) => (
+                            {shownOutside.map((m) => (
                                 <BookRow key={m.slug} slug={m.slug} book={m.book} userRating={m.rating} userLabel={username} />
                             ))}
                         </div>

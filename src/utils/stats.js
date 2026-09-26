@@ -238,16 +238,22 @@ export const PAGE_BUCKETS = [
     { label: '500+ pág.', max: Infinity },
 ];
 
+// A nota de um livro nas distribuicoes (decada, tamanho). Sem `name` e a media
+// do clube; com `name` e a nota dessa pessoa, ou null se nao o leu.
+const distributionRating = (book, name) => (name ? book.reviews?.[name] ?? null : average(book.reviews));
+
 // O catalogo por tamanho, pela mesma receita das decadas: conta os livros de
 // cada escalao e faz a media das medias. Pela ordem dos escaloes, nao por nota.
-export const pageStats = (bookData) => {
+// Com `name` so conta os livros que essa pessoa leu, e a media e a das notas dela.
+export const pageStats = (bookData, name = null) => {
     const acc = PAGE_BUCKETS.map(({ label }) => ({ label, count: 0, sum: 0, rated: 0 }));
     Object.values(bookData).forEach((book) => {
         if (!book.pages) return;
+        const avg = distributionRating(book, name);
+        if (name && avg == null) return;
         const i = PAGE_BUCKETS.findIndex((b) => book.pages < b.max);
         if (i < 0) return;
         acc[i].count += 1;
-        const avg = average(book.reviews);
         if (avg != null) {
             acc[i].sum += avg;
             acc[i].rated += 1;
@@ -262,15 +268,17 @@ export const pageStats = (bookData) => {
 
 // O catalogo por decada de publicacao, da mais antiga para a mais recente --
 // linha do tempo, nao ranking. `average` e null numa decada que ninguem
-// avaliou ainda.
-export const decadeStats = (bookData) => {
+// avaliou ainda. Com `name` so conta os livros que essa pessoa leu, e a media
+// e a das notas dela.
+export const decadeStats = (bookData, name = null) => {
     const acc = {}; // decada -> { count, sum, rated }
     Object.values(bookData).forEach((book) => {
         if (!book.year) return;
+        const avg = distributionRating(book, name);
+        if (name && avg == null) return;
         const decade = Math.floor(book.year / 10) * 10;
         if (!acc[decade]) acc[decade] = { count: 0, sum: 0, rated: 0 };
         acc[decade].count += 1;
-        const avg = average(book.reviews);
         if (avg != null) {
             acc[decade].sum += avg;
             acc[decade].rated += 1;

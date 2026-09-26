@@ -631,6 +631,19 @@ describe('decadeStats', () => {
             { decade: 1980, count: 1, average: null },
         ]);
     });
+
+    // O perfil: so os livros dessa pessoa, com a media das notas dela.
+    test('com nome conta so o que a pessoa avaliou, com a nota dela', () => {
+        const data = {
+            a: fromYear(1994, { X: 5, Y: 1 }),
+            b: fromYear(1999, { Y: 3 }),
+            c: fromYear(2001, { X: 2 }),
+        };
+        expect(decadeStats(data, 'X')).toEqual([
+            { decade: 1990, count: 1, average: 5 },
+            { decade: 2000, count: 1, average: 2 },
+        ]);
+    });
 });
 
 describe('pageStats', () => {
@@ -661,6 +674,16 @@ describe('pageStats', () => {
     test('livro sem paginas nao entra em escalao nenhum', () => {
         const semPaginas = { ...book(['S'], { X: 4 }), pages: null };
         expect(pageStats({ a: semPaginas }).every((b) => b.count === 0)).toBe(true);
+    });
+
+    test('com nome conta so o que a pessoa avaliou, com a nota dela', () => {
+        const data = {
+            a: comPaginas(100, { X: 5, Y: 1 }),
+            b: comPaginas(100, { Y: 3 }),
+        };
+        const [primeiro] = pageStats(data, 'X');
+        expect(primeiro).toMatchObject({ count: 1, average: 5 });
+        expect(pageStats(data, 'Ninguem').every((b) => b.count === 0)).toBe(true);
     });
 });
 

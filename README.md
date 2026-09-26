@@ -104,14 +104,29 @@ python scripts/build_book_data.py --last 3          # notas só dos 3 livros mai
 python scripts/build_book_data.py --user Geremias   # só um membro
 python scripts/build_manual_template.py             # template das notas manuais
 python scripts/discord_import.py <export>           # importar do Discord
+python scripts/build_goodreads_shelves.py           # livros de fora do clube (perfil)
 ```
 
-Escreve em `src/cdl/bookData.json` e descarrega as capas para `public/covers/<ID>.jpg`.
+O `build_book_data.py` escreve em `src/cdl/bookData.json` e descarrega as capas
+para `public/covers/<ID>.jpg`.
 
-Também escreve `src/cdl/goodreadsShelves.json`: os livros que cada membro avaliou
-no Goodreads **fora do clube**. Só a página de perfil os usa, com o toggle
-"Incluir o Goodreads" ligado, e um teste garante que mais nenhuma página os
-importa. Livros lidos sem nota ficam de fora, porque as estatísticas vivem das notas.
+### Livros de fora do clube (perfil)
+
+Na página de perfil há um toggle **"Incluir o Goodreads"**. Quando está ligado,
+as estatísticas dessa pessoa passam a contar também os livros que ela avaliou no
+Goodreads fora do clube. Esses livros vivem em `src/cdl/goodreadsShelves.json`,
+e um teste garante que mais nenhuma página os importa. Atualizam-se com um
+script à parte, que não mexe nos dados do clube:
+
+```bash
+python scripts/build_goodreads_shelves.py                # todos os membros
+python scripts/build_goodreads_shelves.py --user Braz    # só um
+```
+
+Lê as estantes de cada membro (o mesmo RSS do pipeline do clube) e deixa de
+fora os livros do clube e os que estão nas estantes sem nota. Quando entra um
+livro novo no clube, corre primeiro o `build_book_data.py`. Senão, esse livro
+aparece como "de fora" até à corrida seguinte deste script.
 
 **De onde vem cada coisa:**
 

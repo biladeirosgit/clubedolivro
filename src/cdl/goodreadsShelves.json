@@ -1,5 +1,5 @@
 {
-    "_comment": "Gerado pelo build_book_data.py. Livros avaliados no Goodreads por cada membro, sem os do clube. So aparece no perfil, com o toggle ligado.",
+    "_comment": "Gerado pelo build_goodreads_shelves.py. Livros avaliados no Goodreads por cada membro, sem os do clube. So aparece no perfil, com o toggle ligado.",
     "Geremias": [
         {
             "bookId": "37639959",
@@ -1017,7 +1017,7 @@
             "bookId": "28705056",
             "title": "Early Years",
             "author": "TurtleMe",
-            "year": null,
+            "year": 2016,
             "pages": 247,
             "rating": 4,
             "readAt": null,
@@ -1301,7 +1301,7 @@
             "bookId": "28705056",
             "title": "Early Years",
             "author": "TurtleMe",
-            "year": null,
+            "year": 2016,
             "pages": 247,
             "rating": 4,
             "readAt": null,

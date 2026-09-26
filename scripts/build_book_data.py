@@ -11,6 +11,9 @@ Corre-se via `python scripts/build_book_data.py`, tipicamente a partir do
 workflow do GitHub Actions (workflow_dispatch manual). `--last N` limita os
 ratings aos N livros mais recentes e `--user NOME` a um membro so; as duas
 flags combinam-se.
+
+Os livros de fora do clube (goodreadsShelves.json, so para o perfil) sao de
+outro script: build_goodreads_shelves.py.
 """
 import argparse
 import json
@@ -26,7 +29,6 @@ from config import (
     BOOK_META_PATH,
     MANUAL_RATINGS_PATH,
     EDITION_CACHE_PATH,
-    GOODREADS_SHELVES_PATH,
     TITLES_PATH,
 )
 from lib import goodreads, images, openlibrary
@@ -350,76 +352,6 @@ def update_reviews(bookData, eligible, shelves, pages, stats):
                 stats["comments_added"] += 1
 
 
-def club_matcher(bookData, pages):
-    """Funcao que diz se um livro de uma estante e um livro do clube: mesma
-    edicao, mesmo titulo e autor, ou mesma obra. A obra so e procurada (e fica
-    em cache) para livros de autores que o clube ja leu: sao os unicos que
-    podem ser outra edicao de um livro do clube."""
-    club_ids = set(bookData)
-    club_works = {b.get("workId") for b in bookData.values() if b.get("workId")}
-    club_authors = {
-        goodreads.normalize_name(author)
-        for b in bookData.values()
-        for author in b.get("authors") or []
-    }
-    club_titles = {
-        (goodreads.normalize_name(openlibrary.short_title(b.get("title") or "")),
-         goodreads.normalize_name(author))
-        for b in bookData.values()
-        for author in b.get("authors") or []
-    }
-
-    def is_club(entry):
-        if entry["bookId"] in club_ids:
-            return True
-        author = goodreads.normalize_name(entry["author"])
-        key = (goodreads.normalize_name(openlibrary.short_title(entry["title"] or "")), author)
-        if key in club_titles:
-            return True
-        if author not in club_authors:
-            return False
-        return bool(club_works.intersection(pages.work_ids(entry["bookId"], entry["title"], entry["author"])))
-
-    return is_club
-
-
-def save_shelves(shelves, bookData, pages, titles, stats):
-    """Grava os livros com nota de cada membro no Goodreads que NAO sao do
-    clube. So o perfil de cada membro os mostra, com o toggle ligado.
-
-    Um membro cujo RSS falhou neste run (ou que ficou de fora pelo --user)
-    mantem o que ja estava no ficheiro."""
-    data = load_json(GOODREADS_SHELVES_PATH, {})
-    data["_comment"] = (
-        "Gerado pelo build_book_data.py. Livros avaliados no Goodreads por cada "
-        "membro, sem os do clube. So aparece no perfil, com o toggle ligado."
-    )
-    is_club = club_matcher(bookData, pages)
-    for member, shelf in shelves.items():
-        books = []
-        for entry in shelf:
-            if entry["rating"] <= 0 or is_club(entry):
-                continue
-            books.append({
-                "bookId": entry["bookId"],
-                "title": titles.get(entry["bookId"]) or entry["title"],
-                "author": entry["author"],
-                "year": entry["year"],
-                "pages": entry["pages"],
-                "rating": entry["rating"],
-                "readAt": entry["readAt"],
-                "cover": entry["cover"],
-            })
-        data[member] = books
-        stats["shelf_books"] += len(books)
-    save_json(GOODREADS_SHELVES_PATH, data)
-    warn_foreign_titles(
-        "nas estantes do Goodreads",
-        [(b["bookId"], b["title"]) for key, books in data.items() if not key.startswith("_") for b in books],
-        titles,
-    )
-
-
 def apply_manual_ratings(bookData, stats, only_members=None):
     """Aplica as notas manuais de manualRatings.json (membros sem Goodreads, ou
     lacunas). So preenche o que falta — nunca sobrescreve. O ficheiro e
@@ -528,7 +460,6 @@ def build_book_data(members, book_meta, stats, review_limit=None, only_members=N
         key=lambda kv: parse_date(kv[1].get("date")) or datetime.max,
     ))
     save_json(BOOK_DATA_PATH, ordered)
-    save_shelves(shelves, ordered, pages, titles, stats)
     warn_foreign_titles(
         "no clube",
         [(book_id, b.get("title")) for book_id, b in ordered.items() if not book_entry_has_meta_title(book_meta, book_id)],
@@ -606,7 +537,6 @@ def main():
         "reviews_added": 0,
         "comments_added": 0,
         "other_editions": 0,
-        "shelf_books": 0,
     }
 
     try:
@@ -631,7 +561,6 @@ def main():
     print(f"  Reviews novas: {stats['reviews_added']}")
     print(f"  Comentarios novos: {stats['comments_added']}")
     print(f"  Ratings encontrados noutra edicao: {stats['other_editions']}")
-    print(f"  Livros fora do clube nas estantes (so no perfil): {stats['shelf_books']}")
 
 
 if __name__ == "__main__":

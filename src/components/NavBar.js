@@ -43,7 +43,7 @@ const NavBar = () => {
                     <span className="hub-link-text">Biladeiros</span>
                 </a>
                 <span className="navbar-sep" aria-hidden="true" />
-                <Link to="/" className="navbar-brand">Bila<span className="brand-accent">livros</span></Link>
+                <Link to="/" className="navbar-brand">Bila<span className="brand-accent">livro</span></Link>
             </div>
 
             <button

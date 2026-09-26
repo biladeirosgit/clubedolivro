@@ -8,7 +8,8 @@ import './BookRow.css';
 // Cartao horizontal clicavel: capa + titulo + notas. Abre o card no clique.
 // variant: 'card' (default) ou 'list' (mais compacto, com rank).
 // Um livro de fora do clube (`book.external`, so no perfil com o Goodreads
-// ligado) nao tem card: e um link para o Goodreads, com a capa de la.
+// ligado) abre o mesmo card, com a capa do Goodreads e as notas que os membros
+// lhe deram la.
 const BookRow = ({ slug, book, rank, userRating, userLabel = 'rating', showClubAverage = true, variant = 'card' }) => {
     const [openSlug, setOpenSlug] = useState(null);
     const clubAvg = average(book.reviews);
@@ -21,9 +22,9 @@ const BookRow = ({ slug, book, rank, userRating, userLabel = 'rating', showClubA
                 {userRating != null && (
                     <span className="book-row-user">{Number(userRating).toFixed(1)} ★ <span className="book-row-note">{userLabel}</span></span>
                 )}
-                {book.external ? (
-                    <span className="book-row-note">Goodreads ↗</span>
-                ) : showClubAverage && (
+                {/* Um de fora do clube so mostra a nota do dono do perfil: as dos
+                    outros membros estao no card. */}
+                {!book.external && showClubAverage && (
                     <span className="book-row-club">{clubAvgLabel} ★ <span className="book-row-note">club avg</span></span>
                 )}
             </div>
@@ -32,13 +33,20 @@ const BookRow = ({ slug, book, rank, userRating, userLabel = 'rating', showClubA
 
     if (book.external) {
         return (
-            <a className={`book-row book-row--${variant} book-row--external`} href={book.link} target="_blank" rel="noopener noreferrer">
-                {rank != null && <span className="book-row-rank">{rank}</span>}
-                {book.cover
-                    ? <img src={book.cover} alt={`${book.title} capa`} loading="lazy" />
-                    : <span className="book-row-nocover" aria-hidden="true" />}
-                {info}
-            </a>
+            <>
+                <button className={`book-row book-row--${variant} book-row--external`} onClick={() => setOpenSlug(slug)}>
+                    {rank != null && <span className="book-row-rank">{rank}</span>}
+                    {book.cover
+                        ? <img src={book.cover} alt={`${book.title} capa`} loading="lazy" />
+                        : <span className="book-row-nocover" aria-hidden="true" />}
+                    {info}
+                </button>
+                {openSlug && (
+                    <Modal onClose={() => setOpenSlug(null)}>
+                        <BookCard slug={slug} book={book} />
+                    </Modal>
+                )}
+            </>
         );
     }
 

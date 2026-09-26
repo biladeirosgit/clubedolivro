@@ -4,6 +4,7 @@ import { bookData, readingPeriods } from './books'; // so livros que ja chegaram
 import React from 'react';
 import './BookClubStats.css';
 import BookRow from '../components/BookRow';
+import RankedBars from '../components/RankedBars';
 import { Link } from 'react-router-dom';
 import { compareDatesDesc, hasReadingEnded } from '../utils/dates';
 import Avatar from '../components/Avatar';
@@ -226,10 +227,8 @@ const BookClubStats = () => {
     const pageBuckets = pageStats(bookData);
     const maxPageCount = Math.max(1, ...pageBuckets.map((r) => r.count));
     const selfLovers = ownChoiceBias(bookData).slice(0, 10);
-    const topGenreRatings = genreRanking(bookData).slice(0, 10);
-    const maxGenreCount = Math.max(1, ...topGenreRatings.map((g) => g.count));
-    const bestAuthors = creditRanking(bookData, 'authors', null, MIN_AUTHOR_BOOKS).slice(0, 10);
-    const maxAuthorCount = Math.max(1, ...bestAuthors.map((c) => c.count));
+    const topGenreRatings = genreRanking(bookData);
+    const bestAuthors = creditRanking(bookData, 'authors', null, MIN_AUTHOR_BOOKS);
     const bestSuggesters = suggesterRanking(bookData).slice(0, 10);
     const biggestAudience = suggesterAudience(bookData).slice(0, 10);
     const suggesterEras = suggesterYears(bookData).slice(0, 10);
@@ -317,36 +316,14 @@ const BookClubStats = () => {
                 </div>
 
                 <div className="insight-card insight-card--half">
-                    <h2>Géneros mais bem avaliados<InfoTip>A barra é quantos livros têm esse género; à direita vai <b>livros · média</b>, e a lista está ordenada pela média. Um livro conta para todos os géneros que tem. A média é a das médias de cada livro, portanto cada livro pesa o mesmo, tenha sido lido por dez pessoas ou por duas. Só entram géneros com pelo menos {MIN_GENRE_BOOKS} livros, senão um género com um livro só encabeçava a lista.</InfoTip></h2>
-                    <div className="rating-bars">
-                        {topGenreRatings.map((g) => (
-                            <div className="rating-bar-row" key={g.name}>
-                                <span className="rating-bar-label">{g.name}</span>
-                                <div className="rating-bar-track">
-                                    <div className="rating-bar-fill" style={{ width: `${(g.count / maxGenreCount) * 100}%` }} />
-                                </div>
-                                <span className="rating-bar-count">{g.count} · {g.average.toFixed(2)}</span>
-                            </div>
-                        ))}
-                    </div>
+                    <h2>Géneros mais bem avaliados<InfoTip>A barra é quantos livros têm esse género; à direita vai <b>livros · média</b>, e dá para ordenar pela média ou por quantos são. Um livro conta para todos os géneros que tem. A média é a das médias de cada livro, portanto cada livro pesa o mesmo, tenha sido lido por dez pessoas ou por duas. Só entram géneros com pelo menos {MIN_GENRE_BOOKS} livros, senão um género com um livro só encabeçava a lista.</InfoTip></h2>
+                    <RankedBars rows={topGenreRatings.map((g) => ({ key: g.name, label: g.name, count: g.count, average: g.average }))} />
                 </div>
 
                 <div className="insight-card insight-card--half">
                     <h2>Autores mais bem avaliados<InfoTip>Média dos livros de cada autor que o clube leu, com a barra a mostrar quantos são. Mínimo de {MIN_AUTHOR_BOOKS} livros. Um livro com dois autores conta para os dois.</InfoTip></h2>
                     {bestAuthors.length ? (
-                        <div className="rating-bars">
-                            {bestAuthors.map((c) => (
-                                <div className="rating-bar-row" key={c.name}>
-                                    <span className="rating-bar-label">
-                                        <HoverAnchor detail={<BookLines books={c.books} />}>{c.name}</HoverAnchor>
-                                    </span>
-                                    <div className="rating-bar-track">
-                                        <div className="rating-bar-fill" style={{ width: `${(c.count / maxAuthorCount) * 100}%` }} />
-                                    </div>
-                                    <span className="rating-bar-count">{c.count} · {c.average.toFixed(2)}</span>
-                                </div>
-                            ))}
-                        </div>
+                        <RankedBars rows={bestAuthors.map((c) => ({ key: c.name, label: <HoverAnchor detail={<BookLines books={c.books} />}>{c.name}</HoverAnchor>, count: c.count, average: c.average }))} />
                     ) : <p className="highlight-sub">Ainda nenhum autor repetiu.</p>}
                 </div>
 
