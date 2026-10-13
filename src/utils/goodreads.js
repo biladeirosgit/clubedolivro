@@ -12,6 +12,11 @@ const norm = (text) => (text || '')
 // Livros de fora do clube que um membro tem nas estantes (0 sem Goodreads).
 export const shelfCount = (shelves, name) => (Array.isArray(shelves[name]) ? shelves[name].length : 0);
 
+// De onde vem a biblioteca de cada membro: 'goodreads' ou 'hardcover' (o
+// pipeline guarda-o em `_sources`). O nome serve para o toggle e para o card.
+export const SOURCE_NAMES = { goodreads: 'Goodreads', hardcover: 'Hardcover' };
+export const shelfSource = (shelves, name) => (shelves._sources || {})[name] || 'goodreads';
+
 // Junta ao bookData os livros das estantes de todos os membros, no mesmo
 // formato, para as funcoes de stats.js funcionarem sem mudar nada. Um livro que
 // dois membros leram em edicoes diferentes junta-se pelo titulo + autor, e fica
@@ -39,7 +44,9 @@ export const mergeShelves = (bookData, shelves) => {
                     comments: {},
                     date: null,
                     readAt: {},
-                    link: `https://www.goodreads.com/book/show/${b.bookId}`,
+                    // Os do Hardcover trazem o link para la; os do Goodreads
+                    // fazem-no a partir do ID.
+                    link: b.link || `https://www.goodreads.com/book/show/${b.bookId}`,
                     cover: b.cover,
                     external: true,
                 };

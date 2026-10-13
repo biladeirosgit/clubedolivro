@@ -1,6 +1,27 @@
+import os
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
+
+
+def _load_env_file():
+    """Le o .env da raiz (KEY=valor por linha) para o ambiente. Nao sobrepoe
+    variaveis ja definidas (ex: os secrets do GitHub Actions)."""
+    env_path = ROOT / ".env"
+    if not env_path.exists():
+        return
+    for line in env_path.read_text(encoding="utf-8").splitlines():
+        line = line.strip()
+        if not line or line.startswith("#") or "=" not in line:
+            continue
+        key, value = line.split("=", 1)
+        key = key.strip()
+        value = value.strip().strip('"').strip("'")
+        if key and key not in os.environ:
+            os.environ[key] = value
+
+
+_load_env_file()
 
 BOOK_DATA_PATH = ROOT / "src" / "cdl" / "bookData.json"
 MEMBERS_PATH = ROOT / "scripts" / "members.json"
@@ -18,6 +39,15 @@ EDITION_CACHE_PATH = ROOT / "scripts" / "editionCache.json"
 COVERS_DIR = ROOT / "public" / "covers"
 
 GOODREADS_BASE = "https://www.goodreads.com"
+
+# Hardcover: a API oficial, para os membros que usam o Hardcover em vez do
+# Goodreads (`hardcoverUsername` no members.json). A chave e so de leitura e
+# fica no .env (nunca versionado) ou num secret do GitHub Actions.
+HARDCOVER_API_URL = "https://api.hardcover.app/v1/graphql"
+HARDCOVER_TOKEN = os.environ.get("HARDCOVER_TOKEN")
+# Cache Open Library ID -> tem capa? (capas dos livros de fora do clube de
+# quem usa o Hardcover).
+OPENLIBRARY_COVER_CACHE_PATH = ROOT / "scripts" / "openLibraryCoverCache.json"
 
 # Quantos generos do Goodreads guardar por livro. A pagina traz os mais votados
 # primeiro, e a partir do quinto ja sao coisas como "Audiobook" ou "Adult".

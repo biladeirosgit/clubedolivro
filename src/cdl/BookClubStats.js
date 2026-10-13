@@ -6,11 +6,11 @@ import './BookClubStats.css';
 import BookRow from '../components/BookRow';
 import RankedBars from '../components/RankedBars';
 import { Link } from 'react-router-dom';
-import { compareDatesDesc, hasReadingEnded } from '../utils/dates';
+import { compareDatesDesc } from '../utils/dates';
 import Avatar from '../components/Avatar';
 import InfoTip from '../components/InfoTip';
 import { HoverAnchor, BookLines } from '../components/HoverBubble';
-import { affinityPairs, suggesterRanking, suggesterAudience, suggesterAverages, suggesterYears, genreRanking, creditRanking, ratingDistribution, ratingSpread, misunderstoodChoices, ratingOdiousness, bookAudience, commenterRanking, decadeStats, pageStats, ownChoiceBias, RATING_BUCKETS, MIN_SHARED, AFFINITY_SHRINK, MIN_RECOMMENDATIONS, MIN_OWN_CHOICES, MIN_OTHER_RATINGS, MIN_HARSHNESS_BOOKS, MIN_GENRE_BOOKS, MIN_AUTHOR_BOOKS, MIN_SPREAD_RATINGS } from '../utils/stats';
+import { affinityPairs, suggesterRanking, suggesterAudience, suggesterAverages, suggesterYears, genreRanking, creditRanking, ratingDistribution, ratingSpread, misunderstoodChoices, ratingOdiousness, bookAudience, commenterRanking, decadeStats, pageStats, ownChoiceBias, readingRecord, RATING_BUCKETS, MIN_SHARED, AFFINITY_SHRINK, MIN_RECOMMENDATIONS, MIN_OWN_CHOICES, MIN_OTHER_RATINGS, MIN_HARSHNESS_BOOKS, MIN_GENRE_BOOKS, MIN_AUTHOR_BOOKS, MIN_SPREAD_RATINGS } from '../utils/stats';
 
 const BookClubStats = () => {
 
@@ -68,13 +68,6 @@ const BookClubStats = () => {
 
         var books = Object.entries(bookData).sort((a, b) => compareDatesDesc(a[1].date, b[1].date));
 
-        // O streak so olha para leituras ja fechadas: enquanto o livro atual nao
-        // acabar (ou seja, enquanto nao comecar o seguinte), quem ainda nao o
-        // leu nao deve perder o streak por causa disso.
-        const settled = books.filter(([slug]) => hasReadingEnded(readingPeriods[slug]));
-        // Do mais recente para o mais antigo, um conjunto de quem leu cada um.
-        const seenBy = settled.map(([, book]) => new Set(Object.keys(book.reviews)));
-
         const ensure = (user) => {
             if (!(user in watchers)) {
                 watchers[user] = {
@@ -102,39 +95,11 @@ const BookClubStats = () => {
             }
         }
 
+        // O livro em leitura so conta para quem ja o leu -- ver readingRecord.
         for (const [user, watcher] of Object.entries(watchers)) {
-            let run = 0;
-            let longest = 0;
-            let firstSeen = -1;
-
-            seenBy.forEach((viewers, index) => {
-                if (viewers.has(user)) {
-                    if (firstSeen === -1) firstSeen = index;
-                    run += 1;
-                    if (run > longest) longest = run;
-                }
-                else {
-                    run = 0;
-                }
-            });
-
-            // Streak atual: positivo = livros seguidos ate ao ultimo ja fechado,
-            // negativo = quantos dos mais recentes falhou.
-            if (firstSeen === 0) {
-                let current = 0;
-                while (current < seenBy.length && seenBy[current].has(user)) {
-                    current += 1;
-                }
-                watcher["streak"] = current;
-            }
-            else if (firstSeen > 0) {
-                watcher["streak"] = -firstSeen;
-            }
-            else {
-                watcher["streak"] = 0;
-            }
-
-            watcher["max_streak"] = longest;
+            const record = readingRecord(books, readingPeriods, user);
+            watcher["streak"] = record.streak;
+            watcher["max_streak"] = record.maxStreak;
         }
 
         return watchers
@@ -268,7 +233,7 @@ const BookClubStats = () => {
 
             <div className="insight-grid">
                 <div className="insight-card insight-card--third">
-                    <h2>Distribuição de ratings<InfoTip>Quantas vezes o clube deu cada nota, de meia a cinco estrelas. Conta <b>notas</b> e não livros: um livro com oito avaliações entra em oito barras.</InfoTip></h2>
+                    <h2>Distribuição de ratings<InfoTip>Quantas vezes o clube deu cada nota, de meia a cinco estrelas. Os quartos de estrela contam na meia do meio: 3.25 e 3.75 entram nos 3.5. Conta <b>notas</b> e não livros: um livro com oito avaliações entra em oito barras.</InfoTip></h2>
                     <div className="rating-bars">
                         {RATING_BUCKETS.map((key) => {
                             const count = ratingStats[key] || 0;
@@ -567,7 +532,7 @@ const BookClubStats = () => {
                             <th>Média<InfoTip placement="below">Média de todas as notas que deu.</InfoTip></th>
                             <th>Média esc.<InfoTip placement="below">Média dos livros que escolheu, <b>sem a nota do próprio</b>. Livros que mais ninguém avaliou são saltados.</InfoTip></th>
                             <th>Coment.<InfoTip placement="below">Em quantos livros deixou comentário. Uma review por livro, portanto é uma contagem de livros.</InfoTip></th>
-                            <th>Streak<InfoTip placement="below">🔥 = leu os últimos x livros seguidos. ❄️ = não leu os últimos x. Conta até ao último livro já fechado: o livro atual só entra quando sair o seguinte.</InfoTip></th>
+                            <th>Streak<InfoTip placement="below">🔥 = leu os últimos x livros seguidos. ❄️ = não leu os últimos x. O livro atual só conta se já o leu: lê-lo soma logo, não o ter lido ainda não tira nada.</InfoTip></th>
                             <th>Max<InfoTip placement="below-right">A maior série de livros seguidos de sempre dessa pessoa.</InfoTip></th>
                         </tr>
                     </thead>

@@ -171,6 +171,22 @@ def _int_or_none(value):
         return None
 
 
+def _clean_name(value):
+    """O Goodreads as vezes manda o nome do autor com espacos repetidos
+    ("Virginia      Evans")."""
+    return " ".join((value or "").split()) or None
+
+
+def _rating_or_zero(value):
+    """Nota do RSS. O Goodreads passou a deixar dar quartos de estrela (3.25,
+    3.75), por isso le-se como decimal e acerta-se ao quarto mais proximo. 0 =
+    na estante sem nota."""
+    try:
+        return round(float(value) * 4) / 4
+    except (TypeError, ValueError):
+        return 0
+
+
 def fetch_user_books(user_id):
     """Todos os livros das estantes de um membro, pelo feed RSS.
 
@@ -196,8 +212,8 @@ def fetch_user_books(user_id):
             books.append({
                 "bookId": item.findtext("book_id"),
                 "title": SERIES_SUFFIX_RE.sub("", item.findtext("title") or "").strip(),
-                "author": item.findtext("author_name"),
-                "rating": _int_or_none(item.findtext("user_rating")) or 0,
+                "author": _clean_name(item.findtext("author_name")),
+                "rating": _rating_or_zero(item.findtext("user_rating")),
                 "review": (item.findtext("user_review") or "").strip(),
                 # book_published e o ano da primeira publicacao da obra.
                 "year": _int_or_none(item.findtext("book_published")),
@@ -227,7 +243,7 @@ def autocomplete(query):
             "bookId": str(item.get("bookId")),
             "workId": str(item["workId"]) if item.get("workId") else None,
             "title": item.get("bookTitleBare") or item.get("title"),
-            "author": (item.get("author") or {}).get("name"),
+            "author": _clean_name((item.get("author") or {}).get("name")),
             "pages": item.get("numPages") or None,
             "cover": _clean_cover(item.get("imageUrl")),
         })

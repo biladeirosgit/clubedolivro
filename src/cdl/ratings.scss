@@ -26,19 +26,34 @@ $star-fill-color: #ffce54;
     color: $star-empty-color;
 }
 
-%half-star {
+// Estrela pintada so em parte: uma ★ cheia por cima da vazia, cortada a
+// `$fill` da largura. Meias estrelas a 50%; quartos (o Goodreads deixa dar
+// 3.25 e 3.75) a 25% e 75%.
+@mixin partial-star($fill) {
     color: $star-empty-color;
 
     &:after {
-        content: "\2605"; // ★ sobreposta, cortada a 50% de largura
+        content: "\2605"; // ★
         position: absolute;
         top: 0;
         left: 0;
-        width: 50%;
+        width: $fill;
         overflow: hidden;
         display: block;
         color: $star-fill-color;
     }
+}
+
+%half-star {
+    @include partial-star(50%);
+}
+
+%quarter-star {
+    @include partial-star(25%);
+}
+
+%three-quarter-star {
+    @include partial-star(75%);
 }
 
 .rating-score {
@@ -69,6 +84,26 @@ $star-fill-color: #ffce54;
 
             > .rating-score-item:nth-child(#{$i + 1}) {
                 @extend %half-star;
+            }
+        }
+
+        &[data-rating='#{$i + 0.25}'] {
+            > .rating-score-item:nth-child(-n + #{$i}) {
+                @extend %full-star;
+            }
+
+            > .rating-score-item:nth-child(#{$i + 1}) {
+                @extend %quarter-star;
+            }
+        }
+
+        &[data-rating='#{$i + 0.75}'] {
+            > .rating-score-item:nth-child(-n + #{$i}) {
+                @extend %full-star;
+            }
+
+            > .rating-score-item:nth-child(#{$i + 1}) {
+                @extend %three-quarter-star;
             }
         }
     }

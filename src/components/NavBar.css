@@ -111,6 +111,106 @@
     background-color: var(--color-accent);
 }
 
+/* Menu de membros. Em desktop e um painel que cai do botao; na drawer do
+   mobile passa a lista dentro da propria drawer (ver o @media abaixo). */
+.navbar-members {
+    position: relative;
+}
+
+.navbar-members-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: none;
+    border: none;
+    line-height: inherit;
+    cursor: pointer;
+}
+
+.navbar-members-toggle:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+}
+
+.navbar-caret {
+    width: 6px;
+    height: 6px;
+    margin-top: -3px;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: rotate(45deg);
+    transition: transform var(--transition-fast);
+}
+
+.navbar-members-toggle[aria-expanded='true'] .navbar-caret {
+    margin-top: 3px;
+    transform: rotate(-135deg);
+}
+
+.navbar-members-panel {
+    display: none;
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    width: min(460px, calc(100vw - 32px));
+    max-height: min(70vh, 520px);
+    overflow-y: auto;
+    margin: 0;
+    padding: 8px;
+    list-style: none;
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 2px;
+    background: var(--color-ink2);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-md);
+}
+
+.navbar-members-panel.is-open {
+    display: grid;
+}
+
+.navbar-member {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 8px;
+    border-radius: var(--radius-sm);
+    color: var(--color-text-secondary);
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 600;
+    transition: color var(--transition-fast), background-color var(--transition-fast);
+}
+
+.navbar-member:hover {
+    color: var(--color-accent);
+    background-color: rgba(255, 255, 255, 0.04);
+}
+
+.navbar-member:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: -2px;
+}
+
+.navbar-member[aria-current='page'] {
+    color: var(--color-text-primary);
+    background-color: var(--color-surface-alt);
+}
+
+.navbar-member .avatar {
+    display: block;
+    flex-shrink: 0;
+    object-fit: cover;
+}
+
+.navbar-member-name {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
 .navbar-burger {
     display: none;
     flex-direction: column;
@@ -190,6 +290,29 @@
     .navbar-link {
         width: 100%;
         padding: 12px 14px;
+        font-size: 14px;
+    }
+
+    /* Na drawer os membros abrem por baixo do botao, dentro da drawer (que ja
+       faz scroll), em vez de um painel flutuante por cima dela. */
+    .navbar-members-toggle {
+        justify-content: space-between;
+    }
+
+    .navbar-members-panel {
+        position: static;
+        width: auto;
+        max-height: none;
+        overflow: visible;
+        padding: 4px 0 8px;
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        background: none;
+        border: none;
+        box-shadow: none;
+    }
+
+    .navbar-member {
+        padding: 8px 10px;
         font-size: 14px;
     }
 }

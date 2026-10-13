@@ -10,7 +10,7 @@ import Avatar from '../components/Avatar';
 
 // Recebe so o slug e vai buscar o resto ao bookData — assim os sitios que
 // abrem o card nao precisam de saber que campos e que ele mostra.
-// Um livro de fora do clube (so no perfil, com o Goodreads ligado) nao esta no
+// Um livro de fora do clube (so no perfil, com o Goodreads/Hardcover ligado) nao esta no
 // bookData: vem inteiro em `book`, ja com as notas de todos os membros que o
 // avaliaram no Goodreads.
 const BookCard = ({ slug, book: outside }) => {
@@ -30,6 +30,8 @@ const BookCard = ({ slug, book: outside }) => {
     const reviewers = Object.keys(reviews || {});
     const period = external ? null : readingPeriods[slug];
     const cover = external ? book.cover : coverSrc(slug);
+    // Os de fora podem vir do Hardcover (de quem o usa em vez do Goodreads).
+    const site = external && /hardcover\.app/.test(link || '') ? 'Hardcover' : 'Goodreads';
     const meta = [year, pages ? `${pages} páginas` : null].filter(Boolean).join(' · ');
 
     return (
@@ -40,7 +42,7 @@ const BookCard = ({ slug, book: outside }) => {
                     {cover && <img src={cover} alt={`${title} capa`} />}
                 </div>
                 <div className="mc-hero-info">
-                    <p className="mc-kicker">{external ? 'Fora do clube · Goodreads' : 'Livro do clube'}</p>
+                    <p className="mc-kicker">{external ? 'Fora do clube' : 'Livro do clube'}</p>
                     <h2 className="mc-title">{title}</h2>
                     {authors && authors.length > 0 && <p className="mc-authors">{joinWithAmpersand(authors)}</p>}
                     <p className="mc-meta">
@@ -52,7 +54,7 @@ const BookCard = ({ slug, book: outside }) => {
                             {period.end ? `Lido de ${period.start} a ${period.end}` : `A ler desde ${period.start}`}
                         </p>
                     )}
-                    <a className="mc-link" href={link} target="_blank" rel="noopener noreferrer">Ver no Goodreads ↗</a>
+                    <a className="mc-link" href={link} target="_blank" rel="noopener noreferrer">Ver no {site} ↗</a>
                 </div>
             </div>
 
@@ -74,7 +76,7 @@ const BookCard = ({ slug, book: outside }) => {
                 )}
 
                 <section>
-                    <h3>{external ? 'Ratings dos membros no Goodreads' : 'Ratings do clube'}</h3>
+                    <h3>{external ? 'Ratings dos membros' : 'Ratings do clube'}</h3>
                     {reviewers.length ? (
                         <div className="mc-reviews">
                             {reviewers.map((user) => {

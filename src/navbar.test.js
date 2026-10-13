@@ -82,3 +82,54 @@ describe('burger em ecras pequenos', () => {
         expect(container.querySelector('.navbar-burger')).toHaveAttribute('aria-expanded', 'false');
     });
 });
+
+// Chegar ao perfil de um membro obrigava a encontrar o nome numa tabela ou
+// num card. A navbar passou a ter a lista de membros.
+describe('menu de membros', () => {
+    const MEMBERS = ['Atlas', 'Mestre Gui', 'mWXYZ'];
+    const renderAt = (path) =>
+        render(
+            <MemoryRouter initialEntries={[path]}>
+                <NavBar members={MEMBERS} />
+            </MemoryRouter>
+        );
+
+    test('sem membros nao aparece', () => {
+        const { container } = renderNav();
+        expect(container.querySelector('.navbar-members-toggle')).toBeNull();
+    });
+
+    test('abre com um link por membro, pela ordem dada', () => {
+        const { container } = renderAt('/');
+        const toggle = container.querySelector('.navbar-members-toggle');
+        expect(toggle).toHaveAttribute('aria-expanded', 'false');
+        fireEvent.click(toggle);
+        expect(toggle).toHaveAttribute('aria-expanded', 'true');
+        expect(container.querySelector('.navbar-members-panel')).toHaveClass('is-open');
+        const links = [...container.querySelectorAll('.navbar-member')];
+        expect(links.map((a) => a.textContent)).toEqual(MEMBERS);
+        expect(links[1].getAttribute('href')).toBe('/users/Mestre Gui');
+    });
+
+    // O pathname chega codificado ("Mestre%20Gui"): sem o decode o membro com
+    // espaco no nome nunca ficava marcado.
+    test('num perfil, marca o membro e o botao', () => {
+        const { container } = renderAt('/users/Mestre%20Gui');
+        expect(container.querySelector('.navbar-members-toggle')).toHaveClass('active');
+        const current = container.querySelector('.navbar-member[aria-current="page"]');
+        expect(current.textContent).toBe('Mestre Gui');
+    });
+
+    test('fora de um perfil nada fica marcado', () => {
+        const { container } = renderAt('/stats');
+        expect(container.querySelector('.navbar-members-toggle')).not.toHaveClass('active');
+        expect(container.querySelector('.navbar-member[aria-current]')).toBeNull();
+    });
+
+    test('fecha com Escape', () => {
+        const { container } = renderAt('/');
+        fireEvent.click(container.querySelector('.navbar-members-toggle'));
+        fireEvent.keyDown(document, { key: 'Escape' });
+        expect(container.querySelector('.navbar-members-panel')).not.toHaveClass('is-open');
+    });
+});

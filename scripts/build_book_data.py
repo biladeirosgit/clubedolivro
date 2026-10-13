@@ -10,7 +10,8 @@ Goodreads - as suas avaliacoes entram pelo manualRatings.json.
 Corre-se via `python scripts/build_book_data.py`, tipicamente a partir do
 workflow do GitHub Actions (workflow_dispatch manual). `--last N` limita os
 ratings aos N livros mais recentes e `--user NOME` a um membro so; as duas
-flags combinam-se.
+flags combinam-se. `--refresh` passa a atualizar tambem as notas e comentarios
+que ja estao no site (quando alguem muda a nota no Goodreads).
 
 Os livros de fora do clube (goodreadsShelves.json, so para o perfil) sao de
 outro script: build_goodreads_shelves.py.
@@ -31,7 +32,7 @@ from config import (
     EDITION_CACHE_PATH,
     TITLES_PATH,
 )
-from lib import goodreads, images, openlibrary
+from lib import goodreads, hardcover, images, openlibrary
 from lib.http import BlockedError
 
 
@@ -293,12 +294,16 @@ def match_ratings(shelf, eligible, bookData, pages, stats):
         for book_id in eligible
         for author in bookData[book_id].get("authors") or []
     }
+    by_title = title_index(bookData, eligible)
 
     matches = {}
     for entry in shelf:
         if entry["rating"] <= 0:
             continue  # na estante mas sem nota
-        club_id = by_edition.get(entry["bookId"])
+        # Um livro do Hardcover traz os IDs do Goodreads de todas as edicoes.
+        club_id = next((by_edition[g] for g in entry.get("goodreadsIds") or [entry["bookId"]] if g in by_edition), None)
+        if club_id is None:
+            club_id = match_by_title(by_title, entry)
         if club_id is None and by_work and goodreads.normalize_name(entry["author"]) in authors:
             work_ids = pages.work_ids(entry["bookId"], entry["title"], entry["author"])
             club_id = next((by_work[w] for w in work_ids if w in by_work), None)
@@ -309,35 +314,83 @@ def match_ratings(shelf, eligible, bookData, pages, stats):
     return matches
 
 
+def norm_title(title):
+    """Titulo sem subtitulo, normalizado."""
+    return goodreads.normalize_name(openlibrary.short_title(title or ""))
+
+
+def title_index(bookData, book_ids):
+    """{titulo normalizado: [(book_id, autores normalizados, ano)]} dos livros
+    do clube, para o match_by_title."""
+    index = {}
+    for book_id in book_ids:
+        book = bookData[book_id]
+        authors = {goodreads.normalize_name(a) for a in book.get("authors") or []}
+        index.setdefault(norm_title(book.get("title")), []).append((book_id, authors, book.get("year")))
+    return index
+
+
+def match_by_title(index, entry):
+    """O livro do clube com o mesmo titulo e o mesmo autor, ou com o mesmo
+    titulo e o mesmo ano (1 de folga). O ano cobre os autores com nomes
+    diferentes entre sites: "Mary Shelley" no Hardcover, "Mary Wollstonecraft
+    Shelley" no Goodreads. None se nenhum bater."""
+    author = goodreads.normalize_name(entry.get("author"))
+    year = entry.get("year")
+    for book_id, authors, club_year in index.get(norm_title(entry.get("title")), []):
+        if author in authors or (year and club_year and abs(year - club_year) <= 1):
+            return book_id
+    return None
+
+
+def member_source(member):
+    """De onde se leem as notas de um membro: 'hardcover' se tiver
+    `hardcoverUsername` no members.json, 'goodreads' se tiver
+    `goodreadsUserId`, None se as notas forem so a mao."""
+    if member.get("hardcoverUsername"):
+        return "hardcover"
+    if member.get("goodreadsUserId"):
+        return "goodreads"
+    return None
+
+
 def fetch_shelves(members):
-    """RSS de cada membro com Goodreads: {nome: [livros]}. Um feed bloqueado
-    ou vazio fica de fora com um aviso, sem parar o resto."""
+    """Livros de cada membro, do Goodreads (RSS) ou do Hardcover (API),
+    conforme o members.json: {nome: [livros]}. Uma fonte que falhe ou venha
+    vazia fica de fora com um aviso, sem parar o resto."""
     shelves = {}
     for display_name, member in members.items():
-        user_id = member.get("goodreadsUserId")
-        if not user_id:
-            continue  # sem Goodreads: rating so entra a mao
+        source = member_source(member)
+        if source is None:
+            continue  # sem conta: rating so entra a mao
         try:
-            shelf = goodreads.fetch_user_books(user_id)
-        except BlockedError as exc:
-            print(f"  AVISO: RSS de {display_name} falhou: {exc}")
+            if source == "hardcover":
+                shelf = hardcover.fetch_user_books(member["hardcoverUsername"])
+            else:
+                shelf = goodreads.fetch_user_books(member["goodreadsUserId"])
+        except (BlockedError, hardcover.HardcoverError) as exc:
+            print(f"  AVISO: {source} de {display_name} falhou: {exc}")
             continue
         if not shelf:
-            print(f"  AVISO: feed do Goodreads de {display_name} vazio (perfil privado?)")
+            print(f"  AVISO: biblioteca de {display_name} no {source} vazia (perfil privado?)")
             continue
-        print(f"  RSS de {display_name}: {len(shelf)} livros nas estantes.")
+        label = "Hardcover" if source == "hardcover" else "RSS"
+        print(f"  {label} de {display_name}: {len(shelf)} livros.")
         shelves[display_name] = shelf
     return shelves
 
 
-def update_reviews(bookData, eligible, shelves, pages, stats):
-    """Idempotente: so escreve (membro, livro) se ainda nao ha nota nem
-    comentario desse membro nesse livro."""
+def update_reviews(bookData, eligible, shelves, pages, stats, refresh=False):
+    """Por defeito so escreve (membro, livro) se ainda nao ha nota nem
+    comentario desse membro nesse livro: uma nota editada a mao no bookData
+    nunca e apagada. Com `refresh`, o Goodreads manda: uma nota ou comentario
+    diferente do que esta no site substitui-o, e cada troca e listada."""
     for display_name, shelf in shelves.items():
         pending = [
             book_id for book_id in eligible
-            if display_name not in bookData[book_id].get("reviews", {})
-            and display_name not in bookData[book_id].get("comments", {})
+            if refresh
+            or (display_name not in bookData[book_id].get("reviews", {})
+                and display_name not in bookData[book_id].get("comments", {}))
         ]
         if not pending:
             continue
@@ -345,17 +398,29 @@ def update_reviews(bookData, eligible, shelves, pages, stats):
         matches = match_ratings(shelf, pending, bookData, pages, stats)
         for book_id, entry in matches.items():
             book = bookData[book_id]
-            book.setdefault("reviews", {})[display_name] = entry["rating"]
-            stats["reviews_added"] += 1
+            reviews = book.setdefault("reviews", {})
+            old = reviews.get(display_name)
+            if old is None:
+                stats["reviews_added"] += 1
+            elif old != entry["rating"]:
+                stats["reviews_updated"] += 1
+                print(f"  {display_name} mudou a nota de {book.get('title', book_id)}: {old} -> {entry['rating']}")
+            reviews[display_name] = entry["rating"]
             if entry["review"]:
-                book.setdefault("comments", {})[display_name] = entry["review"]
-                stats["comments_added"] += 1
+                comments = book.setdefault("comments", {})
+                if display_name not in comments:
+                    stats["comments_added"] += 1
+                elif comments[display_name] != entry["review"]:
+                    stats["comments_updated"] += 1
+                comments[display_name] = entry["review"]
 
 
-def apply_manual_ratings(bookData, stats, only_members=None):
+def apply_manual_ratings(bookData, stats, only_members=None, refresh=False):
     """Aplica as notas manuais de manualRatings.json (membros sem Goodreads, ou
-    lacunas). So preenche o que falta — nunca sobrescreve. O ficheiro e
-    organizado por membro: {"Xadas": {"5907": {"rating": 4}, ...}}.
+    lacunas). Por defeito so preenche o que falta. Com `refresh`, a nota manual
+    passa por cima da que esta no site (e corre depois do Goodreads, portanto
+    ganha-lhe): e assim que se forca uma nota. O ficheiro e organizado por
+    membro: {"Xadas": {"5907": {"rating": 4}, ...}}.
     Com `only_members` (--user) so os membros desse conjunto sao aplicados."""
     manual = load_json(MANUAL_RATINGS_PATH, {})
     for member, books in manual.items():
@@ -373,13 +438,17 @@ def apply_manual_ratings(bookData, stats, only_members=None):
             if book is None:
                 continue
             reviews = book.setdefault("reviews", {})
+            if member in reviews and (not refresh or reviews[member] == rating):
+                continue  # ja tem nota — so com --refresh se troca
             if member in reviews:
-                continue  # ja tem nota — nao mexer
+                stats["reviews_updated"] += 1
+                print(f"  Nota manual de {member} em {book.get('title', book_id)}: {reviews[member]} -> {rating}")
+            else:
+                stats["reviews_added"] += 1
             reviews[member] = rating
-            stats["reviews_added"] += 1
 
 
-def build_book_data(members, book_meta, stats, review_limit=None, only_members=None):
+def build_book_data(members, book_meta, stats, review_limit=None, only_members=None, refresh=False):
     bookData = load_json(BOOK_DATA_PATH, {})
     edition_cache = load_json(EDITION_CACHE_PATH, {})
     titles = {k: v for k, v in load_json(TITLES_PATH, {}).items() if not k.startswith("_")}
@@ -400,10 +469,14 @@ def build_book_data(members, book_meta, stats, review_limit=None, only_members=N
 
     # As estantes vem primeiro porque tambem servem de fonte de detalhes e capas.
     shelves = fetch_shelves(members)
+    # So as entradas do Goodreads: sao da propria edicao do link do clube. As do
+    # Hardcover juntam todas as edicoes, com o titulo "canonico" do livro
+    # (ex: "Hamlet, Prince of Denmark"), e trocavam os titulos do site.
     shelf_by_id = {}
     for shelf in shelves.values():
         for entry in shelf:
-            shelf_by_id.setdefault(entry["bookId"], entry)
+            if not entry.get("hardcoverId"):
+                shelf_by_id.setdefault(entry["bookId"], entry)
 
     eligible = []
     for book_id, meta in entries.items():
@@ -438,9 +511,15 @@ def build_book_data(members, book_meta, stats, review_limit=None, only_members=N
             book["title"] = meta["title"]
         elif titles.get(book_id):
             book["title"] = titles[book_id]
-        # Idem para o ano, quando o que veio de fora esta errado.
+        # Idem para o ano e as paginas, quando o que veio de fora esta errado
+        # (ex: a edicao do link e um omnibus com tres volumes).
         if meta.get("year"):
             book["year"] = meta["year"]
+        if meta.get("pages"):
+            book["pages"] = meta["pages"]
+        # Nomes de autores com espacos repetidos, vindos de corridas antigas.
+        if book.get("authors"):
+            book["authors"] = [" ".join(a.split()) for a in book["authors"]]
         if not book.get("title"):
             book["title"] = meta.get("_title") or book_id
         if not is_new and json.dumps(book, sort_keys=True) != before:
@@ -451,8 +530,8 @@ def build_book_data(members, book_meta, stats, review_limit=None, only_members=N
         elif rating_ids is None or book_id in rating_ids:
             eligible.append(book_id)
 
-    update_reviews(bookData, eligible, shelves, pages, stats)
-    apply_manual_ratings(bookData, stats, only_members)
+    update_reviews(bookData, eligible, shelves, pages, stats, refresh)
+    apply_manual_ratings(bookData, stats, only_members, refresh)
 
     # Ordem cronologica no ficheiro, para os diffs lerem-se bem.
     ordered = dict(sorted(
@@ -498,6 +577,13 @@ def parse_args():
              "--user Geremias). Pode repetir-se para varios. Combina com --last. "
              "Sem a flag, atualiza todos os membros.",
     )
+    parser.add_argument(
+        "--refresh",
+        action="store_true",
+        help="Atualiza tambem as notas e comentarios que ja estao no site quando "
+             "o Goodreads (ou o manualRatings.json) tem outros, por exemplo quando "
+             "alguem muda a nota. Sem a flag, so preenche o que falta.",
+    )
     args = parser.parse_args()
     if args.last is not None and args.last < 1:
         parser.error("--last tem de ser >= 1")
@@ -537,6 +623,8 @@ def main():
         "reviews_added": 0,
         "comments_added": 0,
         "other_editions": 0,
+        "reviews_updated": 0,
+        "comments_updated": 0,
     }
 
     try:
@@ -546,6 +634,7 @@ def main():
             stats,
             review_limit=args.last,
             only_members=only_members,
+            refresh=args.refresh,
         )
     except BlockedError as exc:
         print(f"\nERRO FATAL: {exc}", file=sys.stderr)
@@ -561,6 +650,9 @@ def main():
     print(f"  Reviews novas: {stats['reviews_added']}")
     print(f"  Comentarios novos: {stats['comments_added']}")
     print(f"  Ratings encontrados noutra edicao: {stats['other_editions']}")
+    if args.refresh:
+        print(f"  Notas atualizadas: {stats['reviews_updated']}")
+        print(f"  Comentarios atualizados: {stats['comments_updated']}")
 
 
 if __name__ == "__main__":

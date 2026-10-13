@@ -56,6 +56,7 @@ a pesquisa do site.
 | Atualizar os dados do clube (notas, livros novos) | `python scripts/build_book_data.py` |
 | Atualizar só as notas dos livros mais recentes | `python scripts/build_book_data.py --last 3` |
 | Atualizar só uma pessoa | `python scripts/build_book_data.py --user Geremias` |
+| Atualizar notas que alguém mudou no Goodreads | `python scripts/build_book_data.py --refresh` |
 | Atualizar os livros de fora do clube (perfil) | `python scripts/build_goodreads_shelves.py` |
 | Preparar as notas de quem não tem Goodreads | `python scripts/build_manual_template.py` |
 | Importar livros de um export do Discord | `python scripts/discord_import.py <ficheiro>` |
@@ -76,9 +77,16 @@ npm install                              # dependências do site
 pip install -r scripts/requirements.txt  # dependências do pipeline
 ```
 
-Não há tokens: o Goodreads não tem API, e o pipeline só usa páginas públicas.
-Os perfis do Goodreads dos membros têm de ser **públicos**, senão o feed vem
-vazio.
+O Goodreads não tem API, e o pipeline só usa páginas públicas: os perfis do
+Goodreads dos membros têm de ser **públicos**, senão o feed vem vazio.
+
+Para os membros que usam o **Hardcover** em vez do Goodreads (ver *Membros no
+Hardcover*), é precisa uma chave da API do Hardcover. Mete-a no ficheiro `.env`
+na raiz (está no `.gitignore`, nunca vai para o GitHub):
+
+```
+HARDCOVER_TOKEN=a_chave
+```
 
 ---
 
@@ -124,6 +132,19 @@ npm run deploy
 Com `--last 3` só vai buscar notas aos 3 livros mais recentes. Com
 `--user Nome` só a uma pessoa. As duas flags combinam-se.
 
+Por defeito, o pipeline só acrescenta notas novas e nunca mexe nas que já estão
+no site. Se alguém **mudou** uma nota no Goodreads, usa `--refresh`: o Goodreads
+passa a mandar, e o script lista cada nota que mudou. Combina com `--user`:
+
+```powershell
+python scripts/build_book_data.py --refresh --user Geremias
+```
+
+Até agora, o feed do Goodreads só mostrou notas inteiras. Se o site mostrar
+arredondada uma nota com quartos ou meias estrelas, põe a nota exata (3.75, por
+exemplo) no `scripts/manualRatings.json` e corre com `--refresh`: a nota manual
+ganha à do Goodreads.
+
 ### Notas dos membros sem Goodreads
 
 Quem não tem Goodreads (neste momento Xadas e Joana) mete as notas à mão.
@@ -133,7 +154,7 @@ python scripts/build_manual_template.py
 ```
 
 Este comando (re)cria `scripts/manualRatings.json` com os livros que ainda não
-têm nota de cada membro. Preenche o `rating` (0.5 a 5) nos que a pessoa leu e
+têm nota de cada membro. Preenche o `rating` (0.25 a 5, em quartos de estrela) nos que a pessoa leu e
 deixa `null` nos outros:
 
 ```json
@@ -173,8 +194,9 @@ português.
 - **Capa má:** põe `"cover": "<URL de uma capa melhor>"` na entrada do
   `bookMeta.json`. As margens lisas à volta das capas são cortadas sozinhas no
   download.
-- **Ano ou título errado num livro do clube:** `"year": 1868` ou
-  `"title": "..."` na entrada do `bookMeta.json` mandam sobre o que vem de fora.
+- **Ano, páginas ou título errados num livro do clube:** `"year": 1868`,
+  `"pages": 248` ou `"title": "..."` na entrada do `bookMeta.json` mandam sobre
+  o que vem de fora.
 
 Depois corre `python scripts/build_book_data.py`.
 
@@ -188,6 +210,40 @@ Depois corre `python scripts/build_book_data.py`.
 2. Mete a foto em `public/pfp/Nome.png`. Sem foto aparece a inicial.
 3. Corre `python scripts/build_book_data.py` e
    `python scripts/build_goodreads_shelves.py --user Nome`.
+
+### Membros no Hardcover
+
+Cada membro pode usar o Goodreads ou o [Hardcover](https://hardcover.app). O
+Hardcover tem uma API oficial, por isso as notas dele (incluindo meias
+estrelas) vêm diretamente de lá. Para passar um membro para o Hardcover:
+
+1. Acrescenta o username dele no `scripts/members.json`. Quem tem
+   `hardcoverUsername` é lido do Hardcover; o `goodreadsUserId` pode ficar, mas
+   deixa de ser usado:
+   ```json
+   "Braz": { "goodreadsUserId": "153147717", "hardcoverUsername": "brazafonso" }
+   ```
+2. A biblioteca e as notas dele no Hardcover têm de ser **públicas**, ou
+   visíveis para quem ele segue, e o dono da chave tem de o seguir. O ideal é
+   ele importar primeiro a biblioteca do Goodreads (*Settings → Import*).
+3. Corre `python scripts/build_book_data.py --refresh --user Nome` e
+   `python scripts/build_goodreads_shelves.py --user Nome`.
+
+Uma só chave chega para todos: é a do dono do projeto, só de leitura (permissões
+`read:catalog`, `read:library` e `read:users`), criada em
+https://hardcover.app/account/api. Fica no `.env` (local) e no secret
+`HARDCOVER_TOKEN` do repositório (para o GitHub Actions). As chaves expiram:
+quando der `401`, cria outra e troca-a nos dois sítios.
+
+Como se ligam os livros: cada livro do Hardcover traz os IDs do Goodreads de
+todas as edições, e é por aí que se liga aos livros do clube. Se não bater,
+compara-se o título com o autor ou com o ano. Os detalhes dos livros do clube
+(título, páginas, capa) continuam a vir do Goodreads.
+
+Os termos do Hardcover só deixam mostrar as notas de alguém num site público
+com autorização dessa pessoa: passar um membro para o Hardcover é com o acordo
+dele. Pela mesma razão, nos livros de fora do clube as capas vêm da Open
+Library e não do Hardcover (as do Hardcover são carregadas pelos utilizadores).
 
 ### Importar os livros antigos do canal do Discord
 
@@ -232,7 +288,7 @@ para `public/covers/<ID>.jpg`.
 
 | Dado | Fonte |
 | --- | --- |
-| Notas e reviews | Feed RSS das estantes de cada membro (`/review/list_rss/<user>`) |
+| Notas e reviews | Feed RSS das estantes de cada membro (`/review/list_rss/<user>`), ou a API do Hardcover para quem o usa |
 | Título, autor, ano, páginas, capa | O mesmo feed, se alguém tiver o livro na estante. Senão, a pesquisa do Goodreads |
 | Obra (para juntar edições diferentes) | Pesquisa do Goodreads |
 | Géneros e co-autores | Página do livro |
@@ -262,7 +318,7 @@ Mapa dos scripts em [scripts/README.md](scripts/README.md).
 
 | Ficheiro | Para quê |
 | --- | --- |
-| `scripts/bookMeta.json` | Lista mestre: ID do Goodreads → data, quem escolheu. Opcionais: `title`, `year` e `cover` |
+| `scripts/bookMeta.json` | Lista mestre: ID do Goodreads → data, quem escolheu. Opcionais: `title`, `year`, `pages` e `cover` |
 | `scripts/titles.json` | Títulos a mostrar, por ID (em inglês, exceto livros portugueses) |
 | `scripts/manualRatings.json` | Notas dos membros sem Goodreads |
 | `scripts/members.json` | Membros: nome → ID de utilizador do Goodreads (ou `null`) |

@@ -50,3 +50,23 @@ def _search_year(title, author):
             continue
         return doc["first_publish_year"]
     return None
+
+
+COVER_URL = "https://covers.openlibrary.org/b/olid/{olid}-M.jpg"
+
+
+def cover_url(olids, cache):
+    """Capa de uma das edicoes da Open Library (`olids`), ou None se nenhuma
+    tiver. Serve para os livros de fora do clube de quem usa o Hardcover, cujas
+    capas sao carregadas pelos utilizadores. `cache` e {olid: True/False} e
+    evita voltar a perguntar; as capas por OLID nao tem limite de pedidos."""
+    for olid in olids[:3]:
+        if olid not in cache:
+            try:
+                resp = http.get(f"{COVER_URL.format(olid=olid)}?default=false", allow_404=True, delay_range=(0.2, 0.5))
+                cache[olid] = resp is not None
+            except Exception:  # noqa: BLE001 - uma capa em falta nunca para o pipeline
+                continue
+        if cache[olid]:
+            return COVER_URL.format(olid=olid)
+    return None

@@ -4,7 +4,7 @@ import { bookData } from './books';
 // Livros que cada membro avaliou no Goodreads fora do clube. Esta pagina e o
 // unico sitio do site que os importa.
 import shelves from './goodreadsShelves.json';
-import { mergeShelves, shelfCount } from '../utils/goodreads';
+import { mergeShelves, shelfCount, shelfSource, SOURCE_NAMES } from '../utils/goodreads';
 import './BookClubStats.css';
 import BookRow from '../components/BookRow';
 import RankedBars, { CountAverageBars } from '../components/RankedBars';
@@ -32,6 +32,8 @@ const UserStats = () => {
     // Os filtros sao da lista de cada pessoa: saltar para outro perfil limpa-os.
     useEffect(() => setFilters(DEFAULT_FILTERS), [username]);
     const extraCount = shelfCount(shelves, username);
+    // Goodreads ou Hardcover, conforme o membro.
+    const sourceName = SOURCE_NAMES[shelfSource(shelves, username)];
     const withGoodreads = includeGoodreads && extraCount > 0;
 
     // Com o toggle ligado, as stats do perfil correm sobre o clube + as
@@ -118,9 +120,9 @@ const UserStats = () => {
                     <label className="gr-toggle">
                         <input type="checkbox" checked={includeGoodreads} onChange={toggleGoodreads} />
                         <span className="gr-toggle-track" aria-hidden="true"><span className="gr-toggle-thumb" /></span>
-                        <span>Incluir o <strong className="gr-toggle-brand">Goodreads</strong> <span className="gr-toggle-count">+{extraCount} livros fora do clube</span></span>
+                        <span>Incluir o <strong className={`gr-toggle-brand gr-toggle-brand--${shelfSource(shelves, username)}`}>{sourceName}</strong> <span className="gr-toggle-count">+{extraCount} livros fora do clube</span></span>
                     </label>
-                    <InfoTip placement="below-right">Junta às estatísticas deste perfil os livros que {username} avaliou no Goodreads e que não são do clube. Mexe nos números, nas distribuições, nos gostos parecidos (também com os livros de fora dos outros membros) e nos autores preferidos. As escolhas, os fãs e o "ainda por ler" continuam só com o clube. Estes livros não aparecem em mais lado nenhum do site.</InfoTip>
+                    <InfoTip placement="below-right">Junta às estatísticas deste perfil os livros que {username} avaliou no {sourceName} e que não são do clube. Mexe nos números, nas distribuições, nos gostos parecidos (também com os livros de fora dos outros membros) e nos autores preferidos. As escolhas, os fãs e o "ainda por ler" continuam só com o clube. Estes livros não aparecem em mais lado nenhum do site.</InfoTip>
                 </div>
             )}
             <div className="kpi-grid">
@@ -152,7 +154,7 @@ const UserStats = () => {
 
             <div className="insight-grid">
                 <div className="insight-card insight-card--third">
-                    <h2>Distribuição de ratings<InfoTip>Quantas vezes {username} deu cada nota, de meia a cinco estrelas. Uma pessoa concentrada em duas ou três barras usa pouco a escala, o que faz as médias dela dizerem menos.</InfoTip></h2>
+                    <h2>Distribuição de ratings<InfoTip>Quantas vezes {username} deu cada nota, de meia a cinco estrelas. Os quartos de estrela contam na meia do meio: 3.25 e 3.75 entram nos 3.5. Uma pessoa concentrada em duas ou três barras usa pouco a escala, o que faz as médias dela dizerem menos.</InfoTip></h2>
                     <div className="rating-bars">
                         {RATING_BUCKETS.map((key) => {
                             const count = ratingStats[key] || 0;
@@ -329,7 +331,7 @@ const UserStats = () => {
 
                 {withGoodreads && (
                     <>
-                        <h2 className='section-title'>Fora do clube · Goodreads ({countLabel(shownOutside, readOutside)})</h2>
+                        <h2 className='section-title'>Fora do clube · {sourceName} ({countLabel(shownOutside, readOutside)})</h2>
                         {shownOutside.length === 0 && (
                             <p className="no-results">Nenhum livro com estes filtros.</p>
                         )}

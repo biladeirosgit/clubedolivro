@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { hubIconSrc } from '../utils/images';
+import Avatar from './Avatar';
 import './NavBar.css';
 
 const HUB_URL = 'https://biladeirosgit.github.io/';
@@ -11,18 +12,37 @@ const LINKS = [
     { to: '/guess', label: 'Guess' },
 ];
 
-const NavBar = () => {
+// Nome do perfil aberto, ou null fora de /users/:nome. O pathname vem
+// codificado ("Mestre%20Gui"), dai o decode.
+const currentMember = (pathname) => {
+    const match = pathname.match(/^\/users\/([^/]+)/);
+    if (!match) return null;
+    try { return decodeURIComponent(match[1]); } catch { return match[1]; }
+};
+
+// `members`: nomes dos perfis, ja pela ordem a mostrar. Sem eles o menu de
+// membros nao aparece.
+const NavBar = ({ members = [] }) => {
     const location = useLocation();
     const [open, setOpen] = useState(false);
+    const [membersOpen, setMembersOpen] = useState(false);
     const navRef = useRef(null);
+    const active = currentMember(location.pathname);
 
     // Fechar ao navegar: sem isto o menu fica aberto por cima da pagina nova.
-    useEffect(() => setOpen(false), [location.pathname]);
+    useEffect(() => {
+        setOpen(false);
+        setMembersOpen(false);
+    }, [location.pathname]);
 
     useEffect(() => {
-        const onKey = (e) => e.key === 'Escape' && setOpen(false);
+        const close = () => {
+            setOpen(false);
+            setMembersOpen(false);
+        };
+        const onKey = (e) => e.key === 'Escape' && close();
         const onClick = (e) => {
-            if (navRef.current && !navRef.current.contains(e.target)) setOpen(false);
+            if (navRef.current && !navRef.current.contains(e.target)) close();
         };
         document.addEventListener('keydown', onKey);
         document.addEventListener('mousedown', onClick);
@@ -67,6 +87,40 @@ const NavBar = () => {
                         {link.label}
                     </Link>
                 ))}
+
+                {/* Atalho para o perfil de cada membro. Antes so se la chegava
+                    a partir de um nome numa tabela ou num card. */}
+                {members.length > 0 && (
+                    <div className="navbar-members">
+                        <button
+                            type="button"
+                            className={`navbar-link navbar-members-toggle${active ? ' active' : ''}`}
+                            aria-expanded={membersOpen}
+                            aria-controls="navbar-members-panel"
+                            onClick={() => setMembersOpen((o) => !o)}
+                        >
+                            Members
+                            <span className="navbar-caret" aria-hidden="true" />
+                        </button>
+                        <ul
+                            id="navbar-members-panel"
+                            className={`navbar-members-panel${membersOpen ? ' is-open' : ''}`}
+                        >
+                            {members.map((name) => (
+                                <li key={name}>
+                                    <Link
+                                        to={`/users/${name}`}
+                                        className="navbar-member"
+                                        aria-current={name === active ? 'page' : undefined}
+                                    >
+                                        <Avatar name={name} size={26} linkToUser={false} />
+                                        <span className="navbar-member-name">{name}</span>
+                                    </Link>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                )}
             </div>
         </nav>
     );

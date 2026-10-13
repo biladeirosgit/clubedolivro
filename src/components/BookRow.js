@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import BookCard from '../cdl/BookCard';
 import Modal from './Modal';
 import { coverSrc } from '../utils/images';
-import { average } from '../utils/ratings';
+import { average, formatRating } from '../utils/ratings';
 import './BookRow.css';
 
 // Cartao horizontal clicavel: capa + titulo + notas. Abre o card no clique.
@@ -20,7 +20,7 @@ const BookRow = ({ slug, book, rank, userRating, userLabel = 'rating', showClubA
             <h3>{book.title} {book.year && <span className="book-row-year">({book.year})</span>}</h3>
             <div className="book-row-ratings">
                 {userRating != null && (
-                    <span className="book-row-user">{Number(userRating).toFixed(1)} ★ <span className="book-row-note">{userLabel}</span></span>
+                    <span className="book-row-user">{formatRating(userRating)} ★ <span className="book-row-note">{userLabel}</span></span>
                 )}
                 {/* Um de fora do clube so mostra a nota do dono do perfil: as dos
                     outros membros estao no card. */}

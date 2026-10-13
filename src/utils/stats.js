@@ -1,4 +1,5 @@
 import { average } from './ratings';
+import { hasReadingEnded } from './dates';
 
 // O clube le um livro por mes e tem poucos membros, portanto os minimos sao bem
 // mais baixos que os do clube de cinema: com os de la, as listas ficavam vazias
@@ -21,6 +22,48 @@ export const allReviewers = (bookData) => {
         Object.keys(book.reviews || {}).forEach((name) => set.add(name));
     });
     return Array.from(set);
+};
+
+// Quem tem perfil, para a lista de membros da navbar: avaliou ou escolheu
+// pelo menos um livro. Ordem alfabetica sem olhar a maiusculas.
+export const clubMembers = (bookData) => {
+    const set = new Set(allReviewers(bookData));
+    Object.values(bookData).forEach((book) => {
+        (book.chosenBy || []).forEach((name) => set.add(name));
+    });
+    return Array.from(set).sort((a, b) => a.localeCompare(b, 'pt', { sensitivity: 'base' }));
+};
+
+// Streak e maior streak de um membro. `books` sao entradas [id, livro] do mais
+// recente para o mais antigo; `periods` e o readingPeriods dos livros.
+//
+// Um livro com a leitura ainda a decorrer so entra se o membro ja o leu: le-lo
+// cedo conta logo, mas nao o ter lido ainda nao tira nada -- a leitura nao
+// acabou. Os de leitura fechada entram sempre.
+//
+// streak > 0: livros seguidos ate ao mais recente; < 0: quantos dos mais
+// recentes falhou; 0: nunca leu nenhum.
+export const readingRecord = (books, periods, user, now = new Date()) => {
+    const seen = books
+        .filter(([id, book]) => user in (book.reviews || {}) || hasReadingEnded(periods[id], now))
+        .map(([, book]) => user in (book.reviews || {}));
+
+    let longest = 0;
+    let run = 0;
+    seen.forEach((s) => {
+        run = s ? run + 1 : 0;
+        if (run > longest) longest = run;
+    });
+
+    const firstSeen = seen.indexOf(true);
+    let streak = 0;
+    if (firstSeen === 0) {
+        while (streak < seen.length && seen[streak]) streak += 1;
+    } else if (firstSeen > 0) {
+        streak = -firstSeen;
+    }
+
+    return { streak, maxStreak: longest };
 };
 
 // Sintonia entre dois membros: correlacao de Pearson sobre os livros que ambos
@@ -302,9 +345,14 @@ export const unratedByUser = (bookData, name) =>
         .sort(([, a], [, b]) => (average(b.reviews) ?? -1) - (average(a.reviews) ?? -1))
         .map(([slug]) => slug);
 
-// As notas sao meias estrelas (0.5 a 5), por isso a distribuicao e indexada
-// pelo dobro da nota: 1 = meia estrela, 10 = cinco estrelas.
+// A distribuicao tem uma barra por meia estrela (0.5 a 5), indexada pelo dobro
+// da nota: 1 = meia estrela, 10 = cinco estrelas. Os quartos de estrela que o
+// Goodreads deixa dar contam na meia do meio: 3.25 e 3.75 vao ambos para 3.5.
+// Assim a distribuicao fica com dez barras em vez de vinte.
 export const RATING_BUCKETS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+export const ratingBucket = (rating) =>
+    (Number.isInteger(rating * 2) ? rating * 2 : Math.floor(rating) * 2 + 1);
 
 // Quantas notas de cada valor foram dadas. Sem `name` conta as do clube todo,
 // com `name` so as dessa pessoa.
@@ -315,7 +363,8 @@ export const ratingDistribution = (bookData, name = null) => {
             ? [book.reviews?.[name]].filter((r) => r != null)
             : Object.values(book.reviews || {});
         ratings.forEach((rating) => {
-            counts[rating * 2] = (counts[rating * 2] || 0) + 1;
+            const bucket = ratingBucket(rating);
+            counts[bucket] = (counts[bucket] || 0) + 1;
         });
     });
     return counts;

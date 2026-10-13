@@ -53,8 +53,9 @@ describe('mergeShelves', () => {
         );
         expect(screen.queryByText(/club avg|Goodreads/)).toBeNull(); // antes de abrir, so a nota dele
         fireEvent.click(screen.getByRole('button'));
-        expect(screen.getByText('Fora do clube · Goodreads')).toBeInTheDocument();
-        expect(screen.getByText('Ratings dos membros no Goodreads')).toBeInTheDocument();
+        expect(screen.getByText('Fora do clube')).toBeInTheDocument();
+        expect(screen.getByText('Ratings dos membros')).toBeInTheDocument();
+        expect(screen.getByText('Ver no Goodreads ↗')).toBeInTheDocument();
         expect(screen.getByText('Tu')).toBeInTheDocument();
         expect(screen.queryByText('Escolhido por')).toBeNull();
     });
@@ -119,5 +120,33 @@ describe('toggle no perfil', () => {
     test('sem Goodreads nao ha toggle', () => {
         perfil('Joana');
         expect(screen.queryByRole('checkbox')).toBeNull();
+    });
+});
+
+// Quem usa o Hardcover em vez do Goodreads (`hardcoverUsername` no
+// members.json): o pipeline marca-o em `_sources` e o perfil muda os nomes.
+describe('membros do Hardcover', () => {
+    test('o livro de fora leva o link do Hardcover', () => {
+        const comHardcover = {
+            _sources: { Eu: 'hardcover' },
+            Eu: [{ bookId: '10', title: 'Duna', author: 'Frank Herbert', rating: 5, link: 'https://hardcover.app/id/book/1', cover: null }],
+        };
+        expect(mergeShelves(clube, comHardcover)['gr-10'].link).toBe('https://hardcover.app/id/book/1');
+        expect(shelfCount(comHardcover, '_sources')).toBe(0);
+    });
+
+    const hardcoverMember = Object.keys(shelves._sources || {}).find((k) => shelves._sources[k] === 'hardcover' && shelves[k]?.length);
+
+    (hardcoverMember ? test : test.skip)('o toggle e a lista dizem Hardcover', () => {
+        render(
+            <MemoryRouter initialEntries={[`/users/${hardcoverMember}`]}>
+                <Routes>
+                    <Route path="/users/:username" element={<UserStats />} />
+                </Routes>
+            </MemoryRouter>
+        );
+        expect(screen.getByText('Hardcover')).toBeInTheDocument();
+        fireEvent.click(screen.getByRole('checkbox'));
+        expect(screen.getByText(/Fora do clube · Hardcover/)).toBeInTheDocument();
     });
 });

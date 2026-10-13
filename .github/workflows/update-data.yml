@@ -20,6 +20,10 @@ jobs:
         run: pip install -r scripts/requirements.txt
 
       - name: Run pipeline
+        # A chave do Hardcover (so de leitura) vem de um secret do repositorio,
+        # para os membros que usam o Hardcover em vez do Goodreads.
+        env:
+          HARDCOVER_TOKEN: ${{ secrets.HARDCOVER_TOKEN }}
         run: python scripts/build_book_data.py
 
       - name: Commit changes

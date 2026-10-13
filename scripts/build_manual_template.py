@@ -3,7 +3,7 @@ Gera/atualiza scripts/manualRatings.json — o ficheiro onde metes as notas dos
 membros SEM Goodreads (e lacunas), organizado por membro.
 
 Para cada membro sem Goodreads, lista os livros que ainda NAO tem nota, com o
-titulo para referencia e um campo "rating" a null. Escreves a nota (0.5 a 5) nos
+titulo para referencia e um campo "rating" a null. Escreves a nota (0.25 a 5) nos
 que leu e deixas null nos que nao leu.
 
 - Preserva as notas que ja tinhas escrito no ficheiro (nao apaga o teu trabalho).
@@ -54,7 +54,7 @@ def main():
     for member in manual_members:
         prev = existing.get(member, {})
         member_block = {
-            "_note": f"Nota de 0.5 a 5 nos livros que {member} leu; deixa null nos que nao leu.",
+            "_note": f"Nota de 0.25 a 5 (em quartos de estrela) nos livros que {member} leu; deixa null nos que nao leu.",
         }
         for slug, book in books_sorted:
             # ja tem nota no site -> nao precisa de estar no template

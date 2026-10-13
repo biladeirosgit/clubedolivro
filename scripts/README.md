@@ -10,6 +10,7 @@ O guia completo, com todos os comandos, está no [README da raiz](../README.md#g
 | `discord_import.py` | Lê um export do canal do Discord e acrescenta os livros ao `bookMeta.json` |
 | `config.py` | Caminhos e constantes (delays, número de géneros) |
 | `lib/goodreads.py` | Leitura do Goodreads: página do livro, RSS das estantes e pesquisa |
+| `lib/hardcover.py` | Leitura do Hardcover pela API oficial (membros com `hardcoverUsername`) |
 | `lib/openlibrary.py` | Ano da primeira publicação, quando o Goodreads não o dá |
 | `lib/http.py` | Sessão HTTP com delay, retry e deteção do anti-bot |
 | `lib/images.py` | Download das capas |
@@ -19,3 +20,4 @@ O guia completo, com todos os comandos, está no [README da raiz](../README.md#g
 | `members.json` | **À mão.** Membros e IDs do Goodreads |
 | `manualRatings.json` | **À mão.** Notas de quem não tem Goodreads |
 | `editionCache.json` | Gerado. Cache edição → obra, para não repetir pesquisas |
+| `openLibraryCoverCache.json` | Gerado. Que edições da Open Library têm capa (livros de fora do clube de quem usa o Hardcover) |

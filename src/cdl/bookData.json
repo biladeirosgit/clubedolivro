@@ -2,11 +2,11 @@
     "35031085": {
         "link": "https://www.goodreads.com/book/show/35031085",
         "reviews": {
-            "Geremias": 3,
-            "Braz": 4,
-            "Atlas": 4,
-            "NeNelson": 3,
-            "Cludos": 5
+            "Geremias": 4.0,
+            "Braz": 4.0,
+            "Atlas": 4.0,
+            "NeNelson": 3.0,
+            "Cludos": 5.0
         },
         "comments": {},
         "date": "17/01/2023",
@@ -32,9 +32,9 @@
     "17061": {
         "link": "https://www.goodreads.com/book/show/17061",
         "reviews": {
-            "Braz": 4,
-            "Atlas": 4,
-            "NeNelson": 3
+            "Braz": 4.0,
+            "Atlas": 4.0,
+            "NeNelson": 3.0
         },
         "comments": {},
         "date": "21/02/2023",
@@ -60,7 +60,7 @@
     "59994485": {
         "link": "https://www.goodreads.com/book/show/59994485",
         "reviews": {
-            "Braz": 2
+            "Braz": 2.0
         },
         "comments": {},
         "date": "20/03/2023",
@@ -69,8 +69,8 @@
         ],
         "title": "Cabeça Fria, Coração Quente",
         "authors": [
-            "Abel  Ferreira",
-            "Carlos  Martinho"
+            "Abel Ferreira",
+            "Carlos Martinho"
         ],
         "year": 2022,
         "pages": 408,
@@ -85,8 +85,8 @@
     "1934": {
         "link": "https://www.goodreads.com/book/show/1934",
         "reviews": {
-            "Braz": 5,
-            "Atlas": 4
+            "Braz": 5.0,
+            "Atlas": 4.0
         },
         "comments": {},
         "date": "21/04/2023",
@@ -114,8 +114,8 @@
     "52892857": {
         "link": "https://www.goodreads.com/book/show/52892857",
         "reviews": {
-            "Braz": 4,
-            "Atlas": 4
+            "Braz": 4.0,
+            "Atlas": 4.0
         },
         "comments": {},
         "date": "22/05/2023",
@@ -141,8 +141,8 @@
     "4929": {
         "link": "https://www.goodreads.com/book/show/4929",
         "reviews": {
-            "Braz": 5,
-            "Atlas": 5
+            "Braz": 5.0,
+            "Atlas": 4.0
         },
         "comments": {},
         "date": "23/06/2023",
@@ -170,7 +170,8 @@
     "251912": {
         "link": "https://www.goodreads.com/book/show/251912",
         "reviews": {
-            "Braz": 4
+            "Braz": 4,
+            "Atlas": 4.0
         },
         "comments": {},
         "date": "30/07/2023",
@@ -182,7 +183,7 @@
         "authors": [
             "Takehiko Inoue"
         ],
-        "pages": 728,
+        "pages": 248,
         "_searched": true,
         "_openLibrary": true,
         "year": 2008,
@@ -198,8 +199,8 @@
     "11297": {
         "link": "https://www.goodreads.com/book/show/11297",
         "reviews": {
-            "Braz": 5,
-            "Atlas": 5
+            "Braz": 5.0,
+            "Atlas": 4.0
         },
         "comments": {},
         "date": "31/08/2023",
@@ -225,8 +226,8 @@
     "6598596": {
         "link": "https://www.goodreads.com/book/show/6598596",
         "reviews": {
-            "Braz": 3,
-            "Atlas": 3
+            "Braz": 3.0,
+            "Atlas": 3.0
         },
         "comments": {},
         "date": "01/10/2023",
@@ -252,7 +253,8 @@
     "16322": {
         "link": "https://www.goodreads.com/book/show/16322",
         "reviews": {
-            "Braz": 5
+            "Braz": 5.0,
+            "Atlas": 4.0
         },
         "comments": {},
         "date": "02/11/2023",
@@ -281,9 +283,9 @@
     "72193": {
         "link": "https://www.goodreads.com/book/show/72193",
         "reviews": {
-            "Braz": 5,
-            "Atlas": 5,
-            "Cludos": 5
+            "Braz": 5.0,
+            "Atlas": 4.0,
+            "Cludos": 5.0
         },
         "comments": {},
         "date": "03/12/2023",
@@ -309,8 +311,8 @@
     "4406": {
         "link": "https://www.goodreads.com/book/show/4406",
         "reviews": {
-            "Braz": 5,
-            "Atlas": 4
+            "Braz": 5.0,
+            "Atlas": 4.0
         },
         "comments": {},
         "date": "04/01/2024",
@@ -336,8 +338,8 @@
     "99664": {
         "link": "https://www.goodreads.com/book/show/99664",
         "reviews": {
-            "Braz": 3,
-            "Atlas": 4
+            "Braz": 3.0,
+            "Atlas": 4.0
         },
         "comments": {},
         "date": "05/02/2024",
@@ -363,8 +365,8 @@
     "18007564": {
         "link": "https://www.goodreads.com/book/show/18007564",
         "reviews": {
-            "Braz": 4,
-            "Atlas": 5
+            "Braz": 4.0,
+            "Atlas": 4.0
         },
         "comments": {},
         "date": "06/03/2024",
@@ -390,7 +392,8 @@
     "415459": {
         "link": "https://www.goodreads.com/book/show/415459",
         "reviews": {
-            "Braz": 3
+            "Braz": 3.0,
+            "Atlas": 4.0
         },
         "comments": {},
         "date": "07/04/2024",
@@ -416,7 +419,7 @@
     "394535": {
         "link": "https://www.goodreads.com/book/show/394535",
         "reviews": {
-            "Braz": 3
+            "Braz": 3.0
         },
         "comments": {},
         "date": "08/05/2024",
@@ -443,8 +446,8 @@
     "6088007": {
         "link": "https://www.goodreads.com/book/show/6088007",
         "reviews": {
-            "Braz": 4,
-            "Atlas": 4
+            "Braz": 4.0,
+            "Atlas": 4.0
         },
         "comments": {},
         "date": "09/06/2024",
@@ -470,8 +473,8 @@
     "15956705": {
         "link": "https://www.goodreads.com/book/show/15956705",
         "reviews": {
-            "Braz": 4,
-            "Atlas": 4
+            "Braz": 4.0,
+            "Atlas": 4.0
         },
         "comments": {},
         "date": "10/07/2024",
@@ -497,7 +500,8 @@
     "192893": {
         "link": "https://www.goodreads.com/book/show/192893",
         "reviews": {
-            "Braz": 5
+            "Braz": 5.0,
+            "Atlas": 4.0
         },
         "comments": {},
         "date": "11/08/2024",
@@ -523,8 +527,8 @@
     "11996": {
         "link": "https://www.goodreads.com/book/show/11996",
         "reviews": {
-            "Braz": 5,
-            "Atlas": 5
+            "Braz": 5.0,
+            "Atlas": 4.0
         },
         "comments": {},
         "date": "12/09/2024",
@@ -550,8 +554,9 @@
     "879188": {
         "link": "https://www.goodreads.com/book/show/879188",
         "reviews": {
-            "Braz": 2,
-            "Cludos": 2
+            "Braz": 2.0,
+            "Cludos": 2.0,
+            "Atlas": 3.0
         },
         "comments": {},
         "date": "13/10/2024",
@@ -577,7 +582,8 @@
     "29579": {
         "link": "https://www.goodreads.com/book/show/29579",
         "reviews": {
-            "Braz": 4
+            "Braz": 4.0,
+            "Atlas": 4.0
         },
         "comments": {},
         "date": "14/11/2024",
@@ -603,7 +609,8 @@
     "656": {
         "link": "https://www.goodreads.com/book/show/656",
         "reviews": {
-            "Braz": 3.5
+            "Braz": 3.5,
+            "Atlas": 4.0
         },
         "comments": {},
         "date": "15/12/2024",
@@ -629,7 +636,8 @@
     "343": {
         "link": "https://www.goodreads.com/book/show/343",
         "reviews": {
-            "Braz": 4
+            "Braz": 4.0,
+            "Atlas": 4.0
         },
         "comments": {},
         "date": "29/01/2025",
@@ -655,7 +663,8 @@
     "401876": {
         "link": "https://www.goodreads.com/book/show/401876",
         "reviews": {
-            "Braz": 4
+            "Braz": 4.0,
+            "Atlas": 4.0
         },
         "comments": {},
         "date": "02/03/2025",
@@ -681,7 +690,8 @@
     "2052": {
         "link": "https://www.goodreads.com/book/show/2052",
         "reviews": {
-            "Braz": 5
+            "Braz": 5.0,
+            "Atlas": 4.0
         },
         "comments": {},
         "date": "03/04/2025",
@@ -707,7 +717,8 @@
     "2429135": {
         "link": "https://www.goodreads.com/book/show/2429135",
         "reviews": {
-            "Braz": 4
+            "Braz": 4.0,
+            "Atlas": 4.0
         },
         "comments": {},
         "date": "04/05/2025",
@@ -733,7 +744,8 @@
     "38599326": {
         "link": "https://www.goodreads.com/book/show/38599326",
         "reviews": {
-            "Braz": 4
+            "Braz": 4,
+            "Atlas": 4.0
         },
         "comments": {},
         "date": "05/06/2025",
@@ -761,7 +773,8 @@
     "11": {
         "link": "https://www.goodreads.com/book/show/11",
         "reviews": {
-            "Braz": 5
+            "Braz": 5.0,
+            "Atlas": 4.0
         },
         "comments": {},
         "date": "13/07/2025",
@@ -787,7 +800,8 @@
     "11348958": {
         "link": "https://www.goodreads.com/book/show/11348958",
         "reviews": {
-            "Braz": 4
+            "Braz": 4.0,
+            "Atlas": 4.0
         },
         "comments": {},
         "date": "14/08/2025",
@@ -813,7 +827,8 @@
     "164154": {
         "link": "https://www.goodreads.com/book/show/164154",
         "reviews": {
-            "Braz": 5
+            "Braz": 5.0,
+            "Atlas": 4.0
         },
         "comments": {},
         "date": "20/09/2025",
@@ -839,7 +854,8 @@
     "54121": {
         "link": "https://www.goodreads.com/book/show/54121",
         "reviews": {
-            "Braz": 4
+            "Braz": 4.0,
+            "Atlas": 4.0
         },
         "comments": {},
         "date": "21/10/2025",
@@ -867,7 +883,8 @@
     "1772910": {
         "link": "https://www.goodreads.com/book/show/1772910",
         "reviews": {
-            "Braz": 3
+            "Braz": 3.0,
+            "Atlas": 4.0
         },
         "comments": {},
         "date": "22/11/2025",
@@ -893,7 +910,8 @@
     "57558287": {
         "link": "https://www.goodreads.com/book/show/57558287",
         "reviews": {
-            "Braz": 4
+            "Braz": 4.0,
+            "Atlas": 4.0
         },
         "comments": {},
         "date": "23/12/2025",
@@ -919,7 +937,8 @@
     "53597791": {
         "link": "https://www.goodreads.com/book/show/53597791",
         "reviews": {
-            "Braz": 4
+            "Braz": 4.0,
+            "Atlas": 4.0
         },
         "comments": {},
         "date": "24/01/2026",
@@ -945,7 +964,8 @@
     "68428": {
         "link": "https://www.goodreads.com/book/show/68428",
         "reviews": {
-            "Braz": 4
+            "Braz": 4.0,
+            "Atlas": 4.0
         },
         "comments": {},
         "date": "11/03/2026",
@@ -972,7 +992,8 @@
         "link": "https://www.goodreads.com/book/show/132080146",
         "reviews": {
             "Braz": 4,
-            "Cludos": 4
+            "Cludos": 4.0,
+            "Atlas": 4.0
         },
         "comments": {},
         "date": "12/04/2026",
@@ -999,7 +1020,7 @@
     "56783258": {
         "link": "https://www.goodreads.com/book/show/56783258",
         "reviews": {
-            "Braz": 4
+            "Braz": 4.0
         },
         "comments": {},
         "date": "13/05/2026",
@@ -1025,7 +1046,8 @@
     "55987278": {
         "link": "https://www.goodreads.com/book/show/55987278",
         "reviews": {
-            "Braz": 3
+            "Braz": 3.0,
+            "Atlas": 3.0
         },
         "comments": {},
         "date": "14/06/2026",
@@ -1051,7 +1073,8 @@
     "13623848": {
         "link": "https://www.goodreads.com/book/show/13623848",
         "reviews": {
-            "Braz": 5
+            "Braz": 5.0,
+            "Atlas": 4.0
         },
         "comments": {},
         "date": "15/07/2026",
@@ -1077,7 +1100,9 @@
     "1420": {
         "link": "https://www.goodreads.com/book/show/1420",
         "reviews": {
-            "Cludos": 3
+            "Cludos": 3.0,
+            "Atlas": 4.0,
+            "Braz": 3.0
         },
         "comments": {},
         "date": "16/08/2026",
@@ -1103,9 +1128,11 @@
     },
     "123675190": {
         "link": "https://www.goodreads.com/book/show/123675190",
-        "reviews": {},
+        "reviews": {
+            "Braz": 4.0
+        },
         "comments": {},
-        "date": "01/10/2026",
+        "date": "17/09/2026",
         "chosenBy": [
             "Joana"
         ],
@@ -1123,6 +1150,31 @@
             "Mythology",
             "Fiction",
             "Middle Grade"
+        ],
+        "_checked": true
+    },
+    "223001257": {
+        "link": "https://www.goodreads.com/book/show/223001257",
+        "reviews": {},
+        "comments": {},
+        "date": "06/11/2026",
+        "chosenBy": [
+            "Braz"
+        ],
+        "title": "The Correspondent",
+        "authors": [
+            "Virginia Evans"
+        ],
+        "year": 2025,
+        "pages": 285,
+        "workId": "223739260",
+        "_searched": true,
+        "genres": [
+            "Fiction",
+            "Book Club",
+            "Audiobook",
+            "Literary Fiction",
+            "Contemporary"
         ],
         "_checked": true
     }

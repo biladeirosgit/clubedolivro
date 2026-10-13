@@ -7,13 +7,18 @@ import BookClubStats from './cdl/BookClubStats';
 import UserStats from './cdl/UserStats';
 import GuessGame from './cdl/GuessGame';
 import NavBar from './components/NavBar';
+import ScrollToTop from './components/ScrollToTop';
+import { bookData } from './cdl/books';
+import { clubMembers } from './utils/stats';
 
+const MEMBERS = clubMembers(bookData);
 
 const App = () => {
     return (
 
         <HashRouter>
-            <NavBar />
+            <ScrollToTop />
+            <NavBar members={MEMBERS} />
             <Routes>
                 <Route path="/" element={<BookClubPage/>} />
                 <Route path="/stats" element={<BookClubStats/>} />

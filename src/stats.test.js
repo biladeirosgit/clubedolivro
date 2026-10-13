@@ -25,6 +25,7 @@ import {
     MIN_OWN_CHOICES,
     ratersOfSuggester,
     suggestersRatedBy,
+    readingRecord,
 } from './utils/stats';
 
 // As estatisticas novas cruzam quem escolheu o livro com quem lhe deu nota.
@@ -791,5 +792,46 @@ describe('suggestersRatedBy', () => {
             b3: book(['B'], { X: 1 }),
         };
         expect(suggestersRatedBy(dois, 'X').map((s) => s.name)).toEqual(['A', 'B']);
+    });
+});
+
+// Streak. O livro em leitura (sem livro seguinte, ou com o seguinte ainda por
+// comecar) so conta para quem ja o leu.
+describe('readingRecord', () => {
+    const HOJE = new Date(2026, 8, 28);
+    const FECHADO = { start: '01/01/2026', end: '31/01/2026' };
+    const ATUAL = { start: '01/09/2026', end: null };
+    // Do mais recente para o mais antigo; o primeiro e o livro atual.
+    const livros = (atual, ...fechados) => {
+        const books = [['atual', { reviews: atual ? { Atlas: 8 } : { Braz: 6 } }]];
+        const periods = { atual: ATUAL };
+        fechados.forEach((leu, i) => {
+            books.push([`f${i}`, { reviews: leu ? { Atlas: 8 } : { Braz: 6 } }]);
+            periods[`f${i}`] = FECHADO;
+        });
+        return [books, periods];
+    };
+    const record = (...args) => readingRecord(...livros(...args), 'Atlas', HOJE);
+
+    test('livro atual ja lido conta para o streak', () => {
+        expect(record(true, true, true).streak).toBe(3);
+    });
+
+    test('livro atual por ler nao tira o streak', () => {
+        expect(record(false, true, true).streak).toBe(2);
+    });
+
+    test('ler o atual corta a serie de falhas', () => {
+        expect(record(false, false, false, true).streak).toBe(-2);
+        expect(record(true, false, false, true).streak).toBe(1);
+    });
+
+    test('o maior streak inclui o atual ja lido', () => {
+        expect(record(true, true, true, false).maxStreak).toBe(3);
+        expect(record(false, true, true, false).maxStreak).toBe(2);
+    });
+
+    test('quem nunca leu nada fica a 0', () => {
+        expect(record(false, false)).toEqual({ streak: 0, maxStreak: 0 });
     });
 });
